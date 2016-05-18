@@ -62,21 +62,8 @@ var ANALYTICS = (function () {
             'dimension24': screenType // screen type
         };
 
-        var storage = new CrossStorageClient('http://www.npr.org/visuals/cross-storage-iframe.html');
-        storage.onConnect().then(function() {
-            return storage.get('firstVisitDate', 'hasListenedToAudio', 'isLoggedIn', 'isRegistered', 'originalLandingPage', 'originalReferrer', 'regDate');
-        }).then(function(res) {
-            customDimensions['dimension17'] = res[0] ?  setDaysSinceFirstVisit(storage, res[0]) : 0;
-            customDimensions['dimension18'] = res[0] ? res[0] : setFirstVisitDate(storage);
-            customDimensions['dimension16'] = res[1] ? res[1] : null;
-            customDimensions['dimension20'] = res[2] ? res[2] : null;
-            customDimensions['dimension19'] = res[3] ? res[3] : null;
-            customDimensions['dimension13'] = res[4] ? res[4] : setOriginalLandingPage(storage);
-            customDimensions['dimension12'] = res[5] ? res[5] :  setOriginalReferrer(storage);
-            customDimensions['dimension21'] = res[6] ? res[6] : null;
-            ga('dotOrgTracker.set', customDimensions);
-            ga('dotOrgTracker.send', 'pageview');
-        });
+        ga('dotOrgTracker.set', customDimensions);
+        ga('dotOrgTracker.send', 'pageview');
     }
 
     var setDaysSinceFirstVisit = function(storage, firstDate) {

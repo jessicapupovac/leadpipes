@@ -1,26 +1,23 @@
-// Global jQuery references
+var active;
+var routes;
+var router;
 
-/*
- * Run on page load.
- */
 var onDocumentLoad = function(e) {
-    // Cache jQuery references
-    renderExampleTemplate();
+    active = document.querySelectorAll('.card.active')[0];
+
+    var routes = {
+      '/:cardID': navigateToCard
+    }
+    router = Router(routes);
+    router.init();
 }
 
-/*
- * Basic templating example.
- */
-var renderExampleTemplate = function() {
-    var context = $.extend(APP_CONFIG, {
-        'template_path': 'jst/example.html',
-        'config': JSON.stringify(APP_CONFIG, null, 4),
-        'copy': JSON.stringify(COPY, null, 4)
-    });
-
-    var html = JST.example(context);
-
-    $('#template-example').html(html);
+var navigateToCard = function(cardID) {
+    var nextCard = document.getElementById(cardID);
+    active.classList.remove('active');
+    nextCard.classList.add('active');
+    active = nextCard;
+    // @TODO ADD ANALYTICS STUFF
 }
 
-$(onDocumentLoad);
+document.addEventListener('DOMContentLoaded', onDocumentLoad);

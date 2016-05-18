@@ -9,6 +9,7 @@ import urllib
 import subprocess
 
 from flask import Markup, g, render_template, request
+from markdown import markdown
 from slimit import minify
 from smartypants import smartypants
 
@@ -208,6 +209,13 @@ def urlencode_filter(s):
     s = urllib.quote_plus(s)
 
     return Markup(s)
+
+def markdown_filter(s):
+    """
+    Process Markdown text
+    """
+    s = unicode(s)
+    return Markup(markdown(s))
 
 def smarty_filter(s):
     """
