@@ -2,13 +2,11 @@
 {% block content %}
 
 <div id="content">
-
     {% for id, card_content in cards %}
     <section id="{{ id }}" class="card{% if initial_card == id %} active{% endif %}">
         {% include 'cards/{0}.html'.format(id) %}
     </section>
     {% endfor %}
-
 </div>
 
 {% endblock %}

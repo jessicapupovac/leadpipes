@@ -1,6 +1,6 @@
-<p>{{ card_content.form_preface }}</p>
+{{ card_content.form_preface|markdown }}
 
-<form>
+<form id="tester-info">
 
     <div>
         <input type="text" placeholder="{{ card_content.name_placeholder }}" required />
@@ -10,4 +10,5 @@
         <input type="text" placeholder="{{ card_content.address_placeholder }}" required />
     </div>
 
+    
 </form>
