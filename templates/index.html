@@ -3,14 +3,17 @@
 
 <div id="content">
     <div class="header">
-        <img src="assets/npr-black.png" />
-        <h1>{{ COPY.content.pagehed }}</h1>
+        <a href="http://npr.org" target="_blank"><img src="assets/npr-black.png" /></a>
+        <h1><a href="#{{ COPY.content.initial_card }}">{{ COPY.content.pagehed }}</a></h1>
     </div>
     {% for id, content in cards %}
     <section id="{{ id }}" class="card">
         {{ content|safe }}
     </section>
     {% endfor %}
+    <section id="form" class="card">
+        {% include '_form.html' %}
+    </section>
 </div>
 
 {% endblock %}

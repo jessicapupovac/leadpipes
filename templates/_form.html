@@ -1,0 +1,16 @@
+<form id="user-info">
+
+    <label for="name">{{ COPY.form.name_label }}</label>
+    <input name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
+
+    <label for="email">{{ COPY.form.email_label }}</label>
+    <input name="email" type="text" placeholder="{{ COPY.form.email_placeholder|smarty }}" required />
+
+    <label for="address">{{ COPY.form.address_label }}</label>
+    <input name="address" type="text" placeholder="{{ COPY.form.address_placeholder|smarty }}" required />
+
+    <p>CITY, STATE TK</p>
+
+    <button type="submit">Submit my information</button>
+
+</form>
