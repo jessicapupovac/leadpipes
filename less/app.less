@@ -5,8 +5,30 @@
 // -------------------------
 @img-root: "../../assets";
 
+
+// Fonts
+// -------------------------
+.knockout() {
+    font-family: 'Knockout 31 4r', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+}
+.gotham() {
+    font-family: 'Gotham SSm',Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
 // Styles
 // -------------------------
+
+body {
+    .gotham();
+}
+
+h1, h2, h3, h4, h5, h6 {
+    .knockout();
+    font-weight: 700;
+}
 
 #content {
     max-width: 50rem;
@@ -31,6 +53,38 @@ input {
 }
 
 .btn {
-    font-size: 1.7rem;
-    font-weight: bold;
+    border-radius: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #009;
+    background-color: #f4f4f4;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    &:hover {
+        background-color: #eee;
+        color: #00f;
+    }
+}
+
+.header {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+
+    img, h1 {
+        display: inline-block;
+    }
+    img {
+        height: 1.2rem;
+        margin-right: 5px;
+    }
+    h1 {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        margin: 0;
+        vertical-align: top;
+        text-transform: uppercase;
+    }
 }
