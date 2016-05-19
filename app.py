@@ -8,10 +8,12 @@ App Template for static publishing.
 """
 
 import app_config
+import csv
 import logging
 import oauth
 import static
 
+from copydoc import CopyDoc
 from flask import Flask, make_response, render_template
 from render_utils import make_context, smarty_filter, urlencode_filter, markdown_filter
 from werkzeug.debug import DebuggedApplication
@@ -27,6 +29,7 @@ logging.basicConfig(format=app_config.LOG_FORMAT)
 logger = logging.getLogger(__name__)
 logger.setLevel(app_config.LOG_LEVEL)
 
+
 @app.route('/')
 @oauth.oauth_required
 def index():
@@ -34,9 +37,28 @@ def index():
     Example view demonstrating rendering a simple HTML page.
     """
     context = make_context()
-    context['cards'] = [(card[5:], context['COPY'][card]) for card in context['COPY']._copy.keys() if card.startswith('card_')]
     context['initial_card'] = context['COPY']['content']['initial_card'].__unicode__()
+    context['cards'] = _make_card_list()
     return make_response(render_template('index.html', **context))
+
+
+def _make_card_list():
+    """
+    Make list of id, html pairs
+    """
+    cards = []
+
+    with open('data/doclist.csv', 'r') as f:
+        reader = csv.reader(f)
+        ids = [item[0] for item in list(reader)]
+
+    for id in ids:
+        with open('data/%s.html' % id, 'r') as f:
+            html = f.read()
+        cards.append([id, CopyDoc(html)])
+
+    return cards
+
 
 app.register_blueprint(static.static)
 app.register_blueprint(oauth.oauth)
