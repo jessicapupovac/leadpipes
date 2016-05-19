@@ -3,7 +3,7 @@
 
 <div id="content">
     {% for id, content in cards %}
-    <section id="{{ id }}" class="card{% if initial_card == id %} active{% endif %}">
+    <section id="{{ id }}" class="card">
         {{ content|safe }}
     </section>
     {% endfor %}
