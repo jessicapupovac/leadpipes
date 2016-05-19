@@ -46,6 +46,8 @@ confs/rendered/*
 
 # Local data
 data/gdoc*.csv
+data/*.html
+data/*.csv
 data/copy.xls
 data/copy.xlsx
 www/assets/*
