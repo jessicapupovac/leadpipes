@@ -19,12 +19,16 @@ var onDocumentLoad = function(e) {
 
 var navigateToCard = function(cardID) {
     document.body.scrollTop = 0;
-    if (active) {
-        active.classList.remove('active');
-    }
     var nextCard = document.getElementById(cardID);
-    nextCard.classList.add('active');
-    active = nextCard;
+    if (nextCard) {
+        if (active) {
+            active.classList.remove('active');
+        }
+        nextCard.classList.add('active');
+        active = nextCard;
+    } else {
+        console.error('Route "' + cardID + '" does not exist');
+    }
 }
 
 var geoLocate = function() {
