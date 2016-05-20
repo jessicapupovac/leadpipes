@@ -18,6 +18,7 @@ var onDocumentLoad = function(e) {
 }
 
 var navigateToCard = function(cardID) {
+    document.body.scrollTop = 0;
     if (active) {
         active.classList.remove('active');
     }
