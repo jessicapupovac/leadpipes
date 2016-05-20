@@ -9,10 +9,12 @@
     {% for id, content in cards %}
     <section id="{{ id }}" class="card">
         {{ content|safe }}
+        {% if id == 'lead' %}
+        {% include '_form.html' %}
+        {% endif %}
     </section>
     {% endfor %}
     <section id="form" class="card">
-        {% include '_form.html' %}
     </section>
 </div>
 
