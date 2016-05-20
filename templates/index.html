@@ -3,7 +3,7 @@
 
 <div id="content">
     <div class="header">
-        <a href="http://npr.org" target="_blank"><img src="assets/npr-black.png" /></a>
+        <a href="http://npr.org" target="_blank"><img src="assets/npr-logo.png" /></a>
         <h1><a href="#{{ COPY.content.initial_card }}">{{ COPY.content.pagehed }}</a></h1>
     </div>
     {% for id, content in cards %}
@@ -14,8 +14,6 @@
         {% endif %}
     </section>
     {% endfor %}
-    <section id="form" class="card">
-    </section>
 </div>
 
 {% endblock %}
