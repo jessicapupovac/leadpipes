@@ -1,4 +1,4 @@
-<form id="user-info">
+<form class="user-info">
 
     <label for="name">{{ COPY.form.name_label }}</label>
     <input name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
@@ -9,8 +9,16 @@
     <label for="address">{{ COPY.form.address_label }}</label>
     <input name="address" type="text" placeholder="{{ COPY.form.address_placeholder|smarty }}" required />
 
-    <p>CITY, STATE TK</p>
+    <label for="city">{{ COPY.form.city_label }}</label>
+    <input name="city" type="text" placeholder="{{ COPY.form.city_placeholder|smarty }}" required />
+
+    <label for="state">{{ COPY.form.state_label }}</label>
+    <select name="state" required>
+        {% for state in us_states %}
+        <option value="{{ state.abbr }}">{{ state.name }}</option>
+        {% endfor %}
+    </select>
+
 
     <button type="submit">Submit my information</button>
-
 </form>

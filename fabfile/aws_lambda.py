@@ -96,6 +96,6 @@ def aws_updatecode():
 @task
 def make():
     require('lambda_function')
-    makezip(env.lambda_function)
-    aws_updatecode(env.lambda_function)
-    aws_invoke(env.lambda_function)
+    makezip()
+    aws_updatecode()
+    aws_invoke()

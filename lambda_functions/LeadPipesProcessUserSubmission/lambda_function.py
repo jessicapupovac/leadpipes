@@ -1,21 +1,23 @@
 import boto3
 import geocoder
 import json
+import uuid
 
 ADDRESS_TEMPLATE = '{address}, {city}, {state}'
 
 
 def lambda_handler(event, context):
     """
-    Return a UUID.
+    Create a new form response.
     """
     full_address = ADDRESS_TEMPLATE.format(**event)
     g = geocoder.google(full_address)
     client = boto3.client('dynamodb')
 
     client.put_item(
-        TableName='LeadPipesSubmission',
+        TableName='LeadPipesResponse',
         Item={
+            'id': {'S': unicode(uuid.uuid4())},
             'sessionid': {'S': event.get('sessionid')},
             'submitted_address': {'S': full_address},
             'processed_address': {'S': g.address},

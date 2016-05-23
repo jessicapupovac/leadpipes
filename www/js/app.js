@@ -4,6 +4,7 @@ var routes;
 var router;
 var sessionID;
 var cityReferences;
+var responseForms;
 var geoResponse;
 var lang = 'en';
 var request = superagent;
@@ -14,11 +15,16 @@ var requestHeaders = {
 
 var onDocumentLoad = function(e) {
     cityReferences = document.getElementsByClassName('geo-city');
+    responseForms = document.getElementsByClassName('user-info');
+
     var routes = {
         '/:cardID': navigateToCard
     }
+
     router = Router(routes);
     router.init([COPY.content.initial_card]);
+
+    listenResponseFormSubmit();
 }
 
 var navigateToCard = function(cardID) {
@@ -32,8 +38,8 @@ var navigateToCard = function(cardID) {
         active = nextCard;
 
         if (cardID != COPY.content.initial_card) {
-            makeSessionID();
-            geoLocate();
+            if (!sessionID) makeSessionID();
+            if (!geoResponse) geoLocate();
         }
     } else {
         console.error('Route "' + cardID + '" does not exist');
@@ -41,16 +47,14 @@ var navigateToCard = function(cardID) {
 }
 
 var makeSessionID = function() {
-    if (!sessionID) {
-        var storedID = STORAGE.get('sessionID');
-        if (!storedID) {
-            request
-                .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
-                .set(requestHeaders)
-                .end(handleSessionRequest);
-        } else {
-            sessionID = storedID;
-        }
+    var storedID = STORAGE.get('sessionID');
+    if (!storedID) {
+        request
+            .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
+            .set(requestHeaders)
+            .end(handleSessionRequest);
+    } else {
+        sessionID = storedID;
     }
 }
 
@@ -64,13 +68,11 @@ var handleSessionRequest = function(err, res) {
 }
 
 var geoLocate = function() {
-    if (!geoResponse && typeof geoip2 === 'object') {
-        var storedResponse = STORAGE.get('geoResponse');
-        if (!storedResponse) {
-            geoip2.city(onLocateIP, onLocateFail);
-        } else {
-            geoResponse = storedResponse;
-        }
+    var storedResponse = STORAGE.get('geoResponse');
+    if (!storedResponse && typeof geoip2 === 'object') {
+        geoip2.city(onLocateIP, onLocateFail);
+    } else {
+        geoResponse = storedResponse;
     }
 }
 
@@ -84,7 +86,34 @@ var onLocateIP = function(response) {
 }
 
 var onLocateFail = function(response) {
-    console.log('locate failed');
+    console.error('geoip locate failed');
+}
+
+var listenResponseFormSubmit = function() {
+    for (var i = 0; i < responseForms.length; ++i) {
+        var responseForm = responseForms[i];
+        responseForm.addEventListener('submit', onSubmitResponseForm);
+    }
+}
+
+var onSubmitResponseForm = function(e, data) {
+    e.preventDefault();
+    var data = serialize(e.target);
+    data.sessionid = sessionID;
+    request
+        .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
+        .send(data)
+        .set(requestHeaders)
+        .set('Content-Type', 'application/json')
+        .end(handleSubmitResponse);
+
+}
+
+var handleSubmitResponse = function(err, res) {
+    for (var i = 0; i < responseForms.length; ++i) {
+        var responseForm = responseForms[i];
+        responseForm.innerHTML = '<p>Done</p>';
+    }
 }
 
 document.addEventListener('DOMContentLoaded', onDocumentLoad);
