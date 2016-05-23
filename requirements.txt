@@ -14,7 +14,7 @@ decorator==4.0.9
 docutils==0.11
 ecdsa==0.13
 Fabric==1.11.1
-fabric-aws-lambda==0.1
+-e git+https://github.com/kunihikokido/fabric-aws-lambda.git#egg=fabric-aws-lambda
 Flask==0.9
 futures==3.0.5
 geocoder==1.15.0
