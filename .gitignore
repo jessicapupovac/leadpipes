@@ -59,3 +59,4 @@ logs/*.log
 
 # Lambda
 lambda_function.zip
+lambda_functions/*/lib
