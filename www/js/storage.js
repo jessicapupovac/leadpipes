@@ -1,9 +1,8 @@
 var STORAGE = (function() {
     var set = function(key, value, ttl) {
-        simpleStorage.set(APP_CONFIG.PROJECT_SLUG + '-' + key, value);
-        if (ttl) {
-            setTTL(key, ttl);
-        }
+        options = {};
+        //if (ttl) options.TTL = ttl;
+        return simpleStorage.set(APP_CONFIG.PROJECT_SLUG + '-' + key, value, options);
     }
 
     var get = function(key) {
@@ -12,16 +11,15 @@ var STORAGE = (function() {
     }
 
     var deleteKey = function(key) {
-        simpleStorage.deleteKey(APP_CONFIG.PROJECT_SLUG + '-' + key);
+        return simpleStorage.deleteKey(APP_CONFIG.PROJECT_SLUG + '-' + key);
     }
 
     var setTTL = function(key, ttl) {
-        simpleStorage.setTTL(APP_CONFIG.PROJECT_SLUG + '-' + key, ttl)
+        return simpleStorage.setTTL(APP_CONFIG.PROJECT_SLUG + '-' + key, ttl)
     }
 
     var getTTL = function(key) {
-        var ttl = simpleStorage.getTTL(APP_CONFIG.PROJECT_SLUG + '-' + key);
-        return ttl;
+        return simpleStorage.getTTL(APP_CONFIG.PROJECT_SLUG + '-' + key);
     }
 
     return {

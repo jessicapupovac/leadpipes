@@ -144,25 +144,9 @@ def deploy(remote='origin', reload=False):
     """
     require('settings', provided_by=[production, staging])
 
-    if app_config.DEPLOY_TO_SERVERS:
-        require('branch', provided_by=[stable, master, branch])
-
-        if (app_config.DEPLOYMENT_TARGET == 'production' and env.branch != 'stable'):
-            utils.confirm(
-                colored("You are trying to deploy the '%s' branch to production.\nYou should really only deploy a stable branch.\nDo you know what you're doing?" % env.branch, "red")
-            )
-
-        servers.checkout_latest(remote)
-
-        servers.fabcast('text.update')
-        servers.fabcast('assets.sync')
-        servers.fabcast('data.update')
-
-        if app_config.DEPLOY_CRONTAB:
-            servers.install_crontab()
-
-        if app_config.DEPLOY_SERVICES:
-            servers.deploy_confs()
+    for lambda_function in app_config.LAMBDA_FUNCTIONS:
+        env.lambda_function = lambda_function
+        aws_lambda.make(invoke=False)
 
     update()
     render.render_all()

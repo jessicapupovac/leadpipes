@@ -1,6 +1,7 @@
 import boto3
 import geocoder
 import json
+import time
 import uuid
 
 ADDRESS_TEMPLATE = '{address}, {city}, {state}'
@@ -18,6 +19,7 @@ def lambda_handler(event, context):
         TableName='LeadPipesResponse',
         Item={
             'id': {'S': unicode(uuid.uuid4())},
+            'timestamp': {'N': unicode(time.time())},
             'sessionid': {'S': event.get('sessionid')},
             'submitted_address': {'S': full_address},
             'processed_address': {'S': g.address},

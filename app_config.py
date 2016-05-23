@@ -40,7 +40,12 @@ API
 """
 LEADPIPES_API_KEY = 'bkayZOMvuy8aZOhIgxq94K9Oe7Y70Hw55'
 LEADPIPES_API_BASEURL = 'https://hx8x68ijgg.execute-api.us-east-1.amazonaws.com/v1'
-LEADPIPES_SESSION_TTL = 3600
+LEADPIPES_SESSION_TTL = 60
+
+LAMBDA_FUNCTIONS = [
+    'LeadPipesGenerateSessionID',
+    'LeadPipesProcessUserSubmission',
+]
 
 """
 DEPLOYMENT

@@ -47,7 +47,7 @@ var navigateToCard = function(cardID) {
 }
 
 var makeSessionID = function() {
-    var storedID = STORAGE.get('sessionID');
+    var storedID = lscache.get('sessionID');
     if (!storedID) {
         request
             .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
@@ -63,26 +63,38 @@ var handleSessionRequest = function(err, res) {
         console.error('ajax error', err, res);
     } else {
         sessionID = res.body;
-        STORAGE.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
+        lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
     }
 }
 
 var geoLocate = function() {
-    var storedResponse = STORAGE.get('geoResponse');
+    var storedResponse = lscache.get('geoResponse');
     if (!storedResponse && typeof geoip2 === 'object') {
         geoip2.city(onLocateIP, onLocateFail);
     } else {
         geoResponse = storedResponse;
+        setGeoReferences();
     }
 }
 
 var onLocateIP = function(response) {
     geoResponse = response;
-    STORAGE.set('geoResponse', response, APP_CONFIG.LEADPIPES_SESSION_TTL);
-    //for (var i = 0; i < cityReferences.length; ++i) {
-        //var item = cityReferences[i];
-        //item.innerHTML = response.city.names[lang] + ', ' + response.most_specific_subdivision.iso_code;
-    //}
+    lscache.set('geoResponse', response, APP_CONFIG.LEADPIPES_SESSION_TTL);
+    setGeoReferences();
+}
+
+var setGeoReferences = function() {
+    for (var i = 0; i < cityReferences.length; ++i) {
+        var item = cityReferences[i];
+        item.innerHTML = geoResponse.city.names[lang] + ', ' + geoResponse.most_specific_subdivision.iso_code;
+    }
+    for (var i = 0; i < responseForms.length; ++i) {
+        var el = responseForms[i];
+        var cityInput = el.querySelector('[name="city"]');
+        var stateInput = el.querySelector('[name="state"]');
+        cityInput.value = geoResponse.city.names[lang];
+        stateInput.value = geoResponse.subdivisions[0].iso_code;
+    }
 }
 
 var onLocateFail = function(response) {
@@ -114,6 +126,8 @@ var handleSubmitResponse = function(err, res) {
         var responseForm = responseForms[i];
         responseForm.innerHTML = '<p>Done</p>';
     }
+    // Reset ttl
+    lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
 }
 
 document.addEventListener('DOMContentLoaded', onDocumentLoad);

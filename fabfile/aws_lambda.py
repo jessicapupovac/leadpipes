@@ -94,8 +94,9 @@ def aws_updatecode():
 
 
 @task
-def make():
+def make(invoke='true'):
     require('lambda_function')
     makezip()
     aws_updatecode()
-    aws_invoke()
+    if bool(invoke):
+        aws_invoke()
