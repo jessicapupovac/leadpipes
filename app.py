@@ -12,6 +12,7 @@ import csv
 import logging
 import oauth
 import static
+import us
 
 from copydoc import CopyDoc
 from flask import Flask, make_response, render_template
@@ -39,6 +40,7 @@ def index():
     context = make_context()
     context['initial_card'] = context['COPY']['content']['initial_card'].__unicode__()
     context['cards'] = _make_card_list()
+    context['us_states'] = us.states.STATES_AND_TERRITORIES
     return make_response(render_template('index.html', **context))
 
 
