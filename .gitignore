@@ -54,5 +54,8 @@ www/assets/*
 !www/assets/assetsignore
 www/live-data/*
 
-#Logs
+# Logs
 logs/*.log
+
+# Lambda
+lambda_function.zip

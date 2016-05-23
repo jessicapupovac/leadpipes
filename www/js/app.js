@@ -2,14 +2,18 @@
 var active;
 var routes;
 var router;
+var sessionID;
 var cityReferences;
+var geoResponse;
 var lang = 'en';
+var request = superagent;
+var requestHeaders = {
+    'Accept': 'application/json',
+    'x-api-key': APP_CONFIG.LEADPIPES_API_KEY
+}
 
 var onDocumentLoad = function(e) {
     cityReferences = document.getElementsByClassName('geo-city');
-
-    geoLocate();
-
     var routes = {
         '/:cardID': navigateToCard
     }
@@ -26,26 +30,57 @@ var navigateToCard = function(cardID) {
         }
         nextCard.classList.add('active');
         active = nextCard;
+
+        if (cardID != COPY.content.initial_card) {
+            makeSessionID();
+            geoLocate();
+        }
     } else {
         console.error('Route "' + cardID + '" does not exist');
     }
 }
 
-var geoLocate = function() {
-    // @TODO wrap in block that caches this stuff
+var makeSessionID = function() {
+    if (!sessionID) {
+        var storedID = STORAGE.get('sessionID');
+        if (!storedID) {
+            request
+                .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
+                .set(requestHeaders)
+                .end(handleSessionRequest);
+        } else {
+            sessionID = storedID;
+        }
+    }
+}
 
-    if (typeof geoip2 === 'object') {
-        geoip2.city(onLocateIP, onLocateFail);
+var handleSessionRequest = function(err, res) {
+    if (err || !res.ok) {
+        console.error('ajax error', err, res);
+    } else {
+        sessionID = res.body;
+        STORAGE.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
+    }
+}
+
+var geoLocate = function() {
+    if (!geoResponse && typeof geoip2 === 'object') {
+        var storedResponse = STORAGE.get('geoResponse');
+        if (!storedResponse) {
+            geoip2.city(onLocateIP, onLocateFail);
+        } else {
+            geoResponse = storedResponse;
+        }
     }
 }
 
 var onLocateIP = function(response) {
-    console.log('locate ip successful');
-    console.log(response);
-    for (var i = 0; i < cityReferences.length; ++i) {
-        var item = cityReferences[i];
-        item.innerHTML = response.city.names[lang] + ', ' + response.most_specific_subdivision.iso_code;
-    }
+    geoResponse = response;
+    STORAGE.set('geoResponse', response, APP_CONFIG.LEADPIPES_SESSION_TTL);
+    //for (var i = 0; i < cityReferences.length; ++i) {
+        //var item = cityReferences[i];
+        //item.innerHTML = response.city.names[lang] + ', ' + response.most_specific_subdivision.iso_code;
+    //}
 }
 
 var onLocateFail = function(response) {

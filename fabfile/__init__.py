@@ -13,6 +13,7 @@ import app_config
 
 # Other fabfiles
 import assets
+import aws_lambda
 import data
 import flat
 import issues
