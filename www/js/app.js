@@ -41,6 +41,7 @@ var navigateToCard = function(cardID) {
             if (!sessionID) makeSessionID();
             if (!geoResponse) geoLocate();
         }
+        ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
     }
