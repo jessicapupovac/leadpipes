@@ -44,6 +44,9 @@ var navigateToCard = function(cardID) {
     } else {
         console.error('Route "' + cardID + '" does not exist');
     }
+    if (!APP_CONFIG.DEBUG) {
+        router.setRoute('');
+    }
 }
 
 var makeSessionID = function() {
