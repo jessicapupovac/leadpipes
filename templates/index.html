@@ -14,6 +14,16 @@
         {% endif %}
     </section>
     {% endfor %}
+    {% if DEBUG %}
+    <section id="index" class="card">
+        <h1>Page index</h1>
+        <ul>
+            {% for id, content in cards %}
+            <li><a href="#{{ id }}">{{ id }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
 </div>
 
 {% endblock %}
