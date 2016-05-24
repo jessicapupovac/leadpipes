@@ -144,10 +144,6 @@ def deploy(remote='origin', reload=False):
     """
     require('settings', provided_by=[production, staging])
 
-    for lambda_function in app_config.LAMBDA_FUNCTIONS:
-        env.lambda_function = lambda_function
-        aws_lambda.make(invoke=False)
-
     update()
     render.render_all()
 
@@ -178,6 +174,16 @@ def deploy(remote='origin', reload=False):
 
     if not check_timestamp():
         reset_browsers()
+
+
+@task
+def deploy_lambda():
+    """
+    Deploy lambda functions.
+    """
+    for lambda_function in app_config.LAMBDA_FUNCTIONS:
+        env.lambda_function = lambda_function
+        aws_lambda.make(invoke=False)
 
 
 @task
