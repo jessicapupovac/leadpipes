@@ -54,6 +54,8 @@ def _make_card_list():
         reader = csv.reader(f)
         ids = [item[0] for item in list(reader)]
 
+    ids = sorted(ids)
+
     for id in ids:
         with open('data/%s.html' % id, 'r') as f:
             html = f.read()
