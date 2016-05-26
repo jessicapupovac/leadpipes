@@ -18,6 +18,48 @@
     line-height: 1.4;
 }
 
+// Breakpoints
+@screen-jumbo-above: ~"screen and (min-width: 1920px)";
+@screen-mega-above: ~"screen and (min-width: 1600px)";
+@screen-large-above: ~"screen and (min-width: 1201px)";
+@screen-large: ~"screen and (min-width: 1200px)";
+@screen-medium-above: ~"screen and (min-width: 992px)";
+@screen-medium: ~"screen and (max-width: 991px)";
+@screen-small-above: ~"screen and (min-width: 768px)";
+@screen-small: ~"screen and (max-width: 767px)";
+@screen-tiny-above: ~"screen and (min-width: 481px)";
+@screen-tiny: ~"screen and (max-width: 480px)";
+
+//max-width for content
+@max-width-content: 47rem;
+
+// Base font size
+// -------------------------
+
+html {
+    font-size: 13px;
+
+    @media @screen-small-above {
+        font-size: 14px;
+    }
+
+    @media @screen-medium-above {
+        font-size: 16px;
+    }
+
+    @media @screen-large-above {
+        font-size: 18px;
+    }
+
+    @media @screen-mega-above {
+        font-size: 21px;
+    }
+
+    @media @screen-jumbo-above {
+        font-size: 24px;
+    }
+}
+
 // Styles
 // -------------------------
 
@@ -27,6 +69,7 @@ body {
     min-height: 100vh;
     color: #ececec;
     line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 body:before {
     content: "";
@@ -63,6 +106,8 @@ input {
 
 .card {
     display: none;
+    -webkit-font-smoothing: antialiased;
+
     &.active {
         display: block;
     }
@@ -92,28 +137,49 @@ input {
 
 }
 
-
-
 .header {
     padding-bottom: 5px;
-    border-bottom: 1px solid #ccc;
 
-    img, h1 {
-        display: inline-block;
-    }
-    img {
-        height: 1.2rem;
-        margin-right: 5px;
-    }
-    h1 {
-        font-size: 1rem;
-        line-height: 1.2rem;
-        margin: 0;
-        vertical-align: top;
-        text-transform: uppercase;
-        a {
-            text-decoration: none;
-            color: #ececec;
+    .logo {
+        padding-top: 23px;
+        padding-left: 5px;
+
+        @media @screen-small-above {
+            //padding-top: 28px;
+            padding-left: 1.8rem;
+        }
+
+        h5 {
+            .knockout();
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            line-height: 1.2em;
+            margin: 0;
+            padding: 0;
+            text-shadow: 2px 2px 2px #333;
+
+            a {
+                text-decoration: none;
+                color: #aaaaaa;
+            }
+
+            @media @screen-small-above {
+                font-size: 1.3rem;
+                line-height: 1.1em;
+            }
+        }
+
+        img {
+            float: left;
+            display: block;
+            width: 3.5rem;
+            margin-right: .5rem;
+            max-width: 100%;
+            height: auto;
+
+            @media @screen-small-above {
+                width: 4.5rem;
+            }
         }
     }
 }
