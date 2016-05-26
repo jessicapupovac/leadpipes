@@ -1,11 +1,7 @@
 // Global variables
 var active;
-var routes;
 var router;
 var sessionID;
-var cityReferences;
-var responseForms;
-var geoResponse;
 var lang = 'en';
 var request = superagent;
 var requestHeaders = {
@@ -14,9 +10,6 @@ var requestHeaders = {
 }
 
 var onDocumentLoad = function(e) {
-    cityReferences = document.getElementsByClassName('geo-city');
-    responseForms = document.getElementsByClassName('user-info');
-
     var routes = {
         '/:cardID': navigateToCard
     }
@@ -39,7 +32,6 @@ var navigateToCard = function(cardID) {
 
         if (cardID != COPY.content.initial_card) {
             if (!sessionID) makeSessionID();
-            if (!geoResponse) geoLocate();
         }
         ANALYTICS.trackEvent('navigate', cardID);
     } else {
@@ -71,41 +63,8 @@ var handleSessionRequest = function(err, res) {
     }
 }
 
-var geoLocate = function() {
-    var storedResponse = lscache.get('geoResponse');
-    if (!storedResponse && typeof geoip2 === 'object') {
-        geoip2.city(onLocateIP, onLocateFail);
-    } else {
-        geoResponse = storedResponse;
-        setGeoReferences();
-    }
-}
-
-var onLocateIP = function(response) {
-    geoResponse = response;
-    lscache.set('geoResponse', response, APP_CONFIG.LEADPIPES_SESSION_TTL);
-    setGeoReferences();
-}
-
-var setGeoReferences = function() {
-    for (var i = 0; i < cityReferences.length; ++i) {
-        var item = cityReferences[i];
-        item.innerHTML = geoResponse.city.names[lang] + ', ' + geoResponse.most_specific_subdivision.iso_code;
-    }
-    for (var i = 0; i < responseForms.length; ++i) {
-        var el = responseForms[i];
-        var cityInput = el.querySelector('[name="city"]');
-        var stateInput = el.querySelector('[name="state"]');
-        cityInput.value = geoResponse.city.names[lang];
-        stateInput.value = geoResponse.subdivisions[0].iso_code;
-    }
-}
-
-var onLocateFail = function(response) {
-    console.error('geoip locate failed');
-}
-
 var listenResponseFormSubmit = function() {
+    var responseForms = document.getElementsByClassName('user-info');
     for (var i = 0; i < responseForms.length; ++i) {
         var responseForm = responseForms[i];
         responseForm.addEventListener('submit', onSubmitResponseForm);
