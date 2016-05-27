@@ -7,7 +7,9 @@
 
 @npr-blue: #6d8ac4;
 @npr-light: #bccae5;
-@npr-bright: #4774cc;
+/*@accent: #E2D050;*/
+@accent: #E46629;
+@accent-light: darken(@accent, 10%);
 
 // Fonts
 // -------------------------
@@ -68,11 +70,26 @@ html {
 
 body {
     .gotham();
-    background: #ececec;
+    background: linear-gradient(#111, #2c2c2c);
     min-height: 100vh;
     color: #333;
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+}
+
+body:before {
+    content: "";
+    position: fixed;
+    width : 100%;
+    height: 100%;
+    z-index: -1;
+    /*background: inherit;*/
+    /*filter        : brightness(15%);*/
+    /*-moz-filter   : brightness(15%);*/
+    /*-webkit-filter: brightness(15%);*/
+    /*-o-filter     : brightness(15%);*/
+    background: url('https://farm1.staticflickr.com/118/292049129_3ed8186ef3_b_d.jpg') center/cover no-repeat fixed;
+    opacity: 0.15;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -148,29 +165,45 @@ input {
     &.active {
         display: block;
     }
+
     a {
-        color: @npr-bright;
+        color: #fff;
         font-weight: 700;
         text-decoration: none;
+        border-bottom: 2px solid @accent;
+        transition: background-color 150ms ease;
+
+        &:hover {
+            color: #ececec;
+            border-bottom: 2px solid @accent-light;
+        }
 
         &.btn {
             border-radius: 3px;
-            padding: 0.35rem 0.5rem;
-            margin: 0.45rem;
+            padding: 0.35rem 0.75rem;
             border: none;
             text-decoration: none;
             font-size: 1.1rem;
-            color: white;
-            background-color: @npr-blue;
+            color: #fff;
+            background-color: @accent;
             display: inline-block;
             position: relative;
             left: 50%;
             transform: translateX(-50%);
+
             &:hover {
-                background-color: @npr-light;
+                background-color: @accent-light;
+            }
+
+            &.back {
+                background-color: #666;
+                color: #ddd;
+
+                &:hover {
+                    background-color: #444;
+                }
             }
         }
-
     }
 
     h1 {
@@ -179,7 +212,6 @@ input {
         @media @screen-small-above {
             font-size: 2.7rem;
         }
-
     }
 
     h2 { font-size: 1.5rem; }
