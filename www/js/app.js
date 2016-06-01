@@ -30,9 +30,10 @@ var navigateToCard = function(cardID) {
         nextCard.classList.add('active');
         active = nextCard;
 
-        if (cardID != COPY.content.initial_card) {
-            if (!sessionID) makeSessionID();
+        if (nextCard.querySelector('form.user-info')) {
+            makeSessionID();
         }
+
         ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
@@ -49,8 +50,6 @@ var makeSessionID = function() {
             .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
             .set(requestHeaders)
             .end(handleSessionRequest);
-    } else {
-        sessionID = storedID;
     }
 }
 
@@ -58,8 +57,7 @@ var handleSessionRequest = function(err, res) {
     if (err || !res.ok) {
         console.error('ajax error', err, res);
     } else {
-        sessionID = res.body;
-        lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
+        lscache.set('sessionID', res.body, APP_CONFIG.LEADPIPES_SESSION_TTL);
     }
 }
 
@@ -74,7 +72,7 @@ var listenResponseFormSubmit = function() {
 var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
-    data.sessionid = sessionID;
+    data.sessionid = lscache.get('sessionID');
     request
         .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
         .send(data)
