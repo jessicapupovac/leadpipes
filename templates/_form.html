@@ -1,24 +1,35 @@
 <form class="user-info">
 
+
+    <fieldset class="pipe-types">
+        <legend>What type of pipes do you have?</legend>
+        <p><input type="radio" id="type-lead" name="pipe-type" value="lead"><label for="type-lead">Lead</label></p>
+        <p><input type="radio" id="type-steel" name="pipe-type" value="steel"><label for="type-steel">Galvanized steel</label></p>
+        <p><input type="radio" id="type-copper" name="pipe-type" value="copper"><label for="type-copper">Copper</label></p>
+        <p><input type="radio" id="type-pvc" name="pipe-type" value="pvc"><label for="type-pvc">PVC (plastic)</label></p>
+    </fieldset>
+
     <label for="name">{{ COPY.form.name_label }}</label>
-    <input name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
+    <input id="name" name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
 
     <label for="email">{{ COPY.form.email_label }}</label>
-    <input name="email" type="text" placeholder="{{ COPY.form.email_placeholder|smarty }}" required />
+    <input id="email" name="email" type="text" placeholder="{{ COPY.form.email_placeholder|smarty }}" required />
 
     <label for="address">{{ COPY.form.address_label }}</label>
-    <input name="address" type="text" placeholder="{{ COPY.form.address_placeholder|smarty }}" required />
+    <input id="address" name="address" type="text" placeholder="{{ COPY.form.address_placeholder|smarty }}" required />
 
     <label for="city">{{ COPY.form.city_label }}</label>
-    <input name="city" type="text" placeholder="{{ COPY.form.city_placeholder|smarty }}" required />
+    <input id="city" name="city" type="text" placeholder="{{ COPY.form.city_placeholder|smarty }}" required />
 
     <label for="state">{{ COPY.form.state_label }}</label>
-    <select name="state" required>
+    <select id="state" name="state" required>
+        <option value="null" disabled selected>Select your state</option>
         {% for state in us_states %}
         <option value="{{ state.abbr }}">{{ state.name }}</option>
         {% endfor %}
     </select>
 
-
-    <button type="submit">Submit my information</button>
+    <p>
+        <button type="submit">Submit my information</button>
+    </p>
 </form>
