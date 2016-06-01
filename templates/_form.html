@@ -1,28 +1,26 @@
 <form class="user-info">
-
-
     <fieldset class="pipe-types">
         <legend>What type of pipes do you have?</legend>
-        <p><input type="radio" id="type-lead" name="pipe-type" value="lead"><label for="type-lead">Lead</label></p>
-        <p><input type="radio" id="type-steel" name="pipe-type" value="steel"><label for="type-steel">Galvanized steel</label></p>
-        <p><input type="radio" id="type-copper" name="pipe-type" value="copper"><label for="type-copper">Copper</label></p>
-        <p><input type="radio" id="type-pvc" name="pipe-type" value="pvc"><label for="type-pvc">PVC (plastic)</label></p>
+        <p><input type="radio" id="{{ id }}-type-lead" name="pipe-type" value="lead" {% if id == 'lead' %}checked="checked"{% endif %}><label for="{{ id }}-type-lead">Lead</label></p>
+        <p><input type="radio" id="{{ id }}-type-steel" name="pipe-type" value="steel" {% if id == 'steel' %}checked="checked"{% endif %}><label for="{{ id }}-type-steel">Galvanized steel</label></p>
+        <p><input type="radio" id="{{ id }}-type-copper" name="pipe-type" value="copper" {% if id == 'copper' %}checked="checked"{% endif %}><label for="{{ id }}-type-copper">Copper</label></p>
+        <p><input type="radio" id="{{ id }}-type-plastic" name="pipe-type" value="plastic" {% if id == 'plastic' %}checked="checked"{% endif %}><label for="{{ id }}-type-pvc">PVC (plastic)</label></p>
     </fieldset>
 
-    <label for="name">{{ COPY.form.name_label }}</label>
-    <input id="name" name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
+    <label for="{{ id }}-name">{{ COPY.form.name_label }}</label>
+    <input id="{{ id }}-name" name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
 
-    <label for="email">{{ COPY.form.email_label }}</label>
-    <input id="email" name="email" type="text" placeholder="{{ COPY.form.email_placeholder|smarty }}" required />
+    <label for="{{ id }}-email">{{ COPY.form.email_label }}</label>
+    <input id="{{ id }}-email" name="email" type="text" placeholder="{{ COPY.form.email_placeholder|smarty }}" required />
 
-    <label for="address">{{ COPY.form.address_label }}</label>
-    <input id="address" name="address" type="text" placeholder="{{ COPY.form.address_placeholder|smarty }}" required />
+    <label for="{{ id }}-address">{{ COPY.form.address_label }}</label>
+    <input id="{{ id }}-address" name="address" type="text" placeholder="{{ COPY.form.address_placeholder|smarty }}" required />
 
-    <label for="city">{{ COPY.form.city_label }}</label>
-    <input id="city" name="city" type="text" placeholder="{{ COPY.form.city_placeholder|smarty }}" required />
+    <label for="{{ id }}-city">{{ COPY.form.city_label }}</label>
+    <input id="{{ id }}-city" name="city" type="text" placeholder="{{ COPY.form.city_placeholder|smarty }}" required />
 
-    <label for="state">{{ COPY.form.state_label }}</label>
-    <select id="state" name="state" required>
+    <label for="{{ id }}-state">{{ COPY.form.state_label }}</label>
+    <select id="{{ id }}-state" name="state" required>
         <option value="null" disabled selected>Select your state</option>
         {% for state in us_states %}
         <option value="{{ state.abbr }}">{{ state.name }}</option>

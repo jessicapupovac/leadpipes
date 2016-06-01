@@ -1,15 +1,17 @@
 {% extends '_base.html' %}
 {% block content %}
 
-<div id="content">
-    <div class="header">
-        <a href="http://npr.org" target="_blank"><img src="assets/npr-logo.png" /></a>
-        <h1><a href="#{{ COPY.content.initial_card }}">{{ COPY.content.pagehed }}</a></h1>
+<div class="header">
+    <div class="logo">
+        <a href="http://npr.org" target="_blank"><img src="assets/npr-white.png" /></a>
+        <h5><a href="#{{ COPY.content.initial_card }}">{{ COPY.content.pagehed }}</a></h5>
     </div>
+</div>
+<div id="content">
     {% for id, content in cards %}
     <section id="{{ id }}" class="card">
         {{ content|safe }}
-        {% if id == 'lead' %}
+        {% if id in END_CARDS %}
         {% include '_form.html' %}
         {% endif %}
     </section>

@@ -48,6 +48,11 @@ LAMBDA_FUNCTIONS = [
 ]
 
 """
+APP CONFIGURATION
+"""
+END_CARDS = ['lead', 'steel', 'plastic', 'copper']
+
+"""
 DEPLOYMENT
 """
 PRODUCTION_S3_BUCKET = 'apps.npr.org'
@@ -205,10 +210,10 @@ def configure_targets(deployment_target):
         ASSETS_MAX_AGE = 20
     else:
         S3_BUCKET = None
-        S3_BASE_URL = 'http://127.0.0.1:8000'
+        S3_BASE_URL = 'http://127.0.0.1:5050'
         S3_DEPLOY_URL = None
         SERVERS = []
-        SERVER_BASE_URL = 'http://127.0.0.1:8001/%s' % PROJECT_SLUG
+        SERVER_BASE_URL = 'http://127.0.0.1:5051/%s' % PROJECT_SLUG
         SERVER_LOG_PATH = '/tmp'
         LOG_LEVEL = logging.DEBUG
         DEBUG = True
