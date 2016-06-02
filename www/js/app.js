@@ -31,6 +31,11 @@ var navigateToCard = function(cardID) {
         nextCard.classList.add('active');
         active = nextCard;
 
+        backButtons = document.getElementsByClassName('back');
+        listenBackButtonClick();
+
+        responseForms = document.getElementsByClassName('user-info');
+
         if (nextCard.querySelector('form.user-info')) {
             makeSessionID();
         }
@@ -43,6 +48,20 @@ var navigateToCard = function(cardID) {
         router.setRoute('');
     }
 }
+
+var listenBackButtonClick = function() {
+    for (var i = 0; i < backButtons.length; ++i) {
+        var backButton = backButtons[i];
+        backButton.addEventListener('click', onBackButtonClick);
+    }
+}
+
+
+var onBackButtonClick = function(e) {
+    e.preventDefault();
+    window.history.go(-1);
+}
+
 
 var makeSessionID = function() {
     var storedID = lscache.get('sessionID');
