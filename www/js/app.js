@@ -82,7 +82,6 @@ var handleSessionRequest = function(err, res) {
 }
 
 var listenResponseFormSubmit = function() {
-    var responseForms = document.getElementsByClassName('user-info');
     for (var i = 0; i < responseForms.length; ++i) {
         var responseForm = responseForms[i];
         responseForm.addEventListener('submit', onSubmitResponseForm);
