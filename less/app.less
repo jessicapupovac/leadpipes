@@ -217,12 +217,18 @@ img {
 
 form {
     margin-top: 2rem;
+    p {
+        margin: 0.25rem 0;
+        text-align: center;
+    }
     label {
         margin-bottom: 1rem;
     }
     input[type="text"] {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         width: 100%;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.9rem;
     }
     input[type="radio"] {
         margin-right: 0.5rem;
@@ -231,5 +237,27 @@ form {
         border: none;
         padding: 0;
         margin: 0 0 1rem 0;
+
+        p {
+            text-align: left;
+        }
+    }
+    button[type="submit"] {
+        color: #fff;
+        cursor: pointer;
+        font-weight: 700;
+        transition: background-color 150ms ease;
+        border-radius: 3px;
+        padding: 0.35rem 0.75rem;
+        margin: 1rem 0 0;
+        border: none;
+        text-decoration: none;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: @accent;
+
+        &:hover {
+            background-color: @accent-light;
+        }
     }
 }
