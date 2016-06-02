@@ -1,8 +1,9 @@
 {
     "name": "NPR person",
-    "sessionid": "20d6aa7a-9d50-4064-952d-579ef7d9cdd",
+    "sessionid": "e0b7192c-34c6-488c-8c3e-9635bf61a100",
     "email": "testemail@npr.org",
-    "address": "1111 n capital st",
+    "address": "1111 n capitol st ne",
     "city": "Washington",
-    "state": "DC"
+    "state": "DC",
+    "pipe-type": "lead"
 }
