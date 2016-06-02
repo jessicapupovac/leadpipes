@@ -3,11 +3,11 @@ var active;
 var router;
 var sessionID;
 var responseForms;
+var backButtons;
 var lang = 'en';
 var request = superagent;
 var requestHeaders = {
-    'Accept': 'application/json',
-    'x-api-key': APP_CONFIG.LEADPIPES_API_KEY
+    'Accept': 'application/json'
 }
 
 var onDocumentLoad = function(e) {
