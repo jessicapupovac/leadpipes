@@ -2,6 +2,7 @@
 var active;
 var router;
 var sessionID;
+var responseForms;
 var lang = 'en';
 var request = superagent;
 var requestHeaders = {

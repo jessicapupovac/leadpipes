@@ -14,6 +14,9 @@
         {% if id in END_CARDS %}
         {% include '_form.html' %}
         {% endif %}
+        {% if COPY.content.initial_card.__unicode__() != id %}
+        <p><a class="btn back">Back</a></p>
+        {% endif %}
     </section>
     {% endfor %}
     {% if DEBUG %}
