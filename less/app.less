@@ -215,6 +215,36 @@ img {
     h2 { font-size: 1.5rem; }
     h3 { font-size: 14px; }
     h4 { margin-top: 3rem; }
+
+    .img-wrap {
+        text-align: center;
+    }
+
+    img.inline-img {
+        box-sizing: border-box;
+        border: 2px solid #333;
+
+        &.inline-1 {
+            max-width: 32rem;
+            width: 100%;
+            margin: 1rem auto;
+        }
+
+        &.inline-3 {
+            width: 32.5%;
+            margin: 1rem 0 1rem 1%;
+
+            @media screen and (max-width: 500px) {
+                max-width: 400px;
+                width: 100%;
+                margin: 1rem auto;
+            }
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
 }
 
 form {

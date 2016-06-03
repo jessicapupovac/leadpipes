@@ -50,7 +50,7 @@ LAMBDA_FUNCTIONS = [
 """
 APP CONFIGURATION
 """
-END_CARDS = ['lead', 'steel', 'plastic', 'copper']
+END_CARDS = ['lead']
 
 """
 DEPLOYMENT
