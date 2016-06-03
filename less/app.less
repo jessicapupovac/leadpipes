@@ -170,8 +170,7 @@ img {
         transition: background-color 150ms ease;
 
         &:hover {
-            color: #ececec;
-            border-bottom: 2px solid @accent-light;
+            color: @accent;
         }
 
         &.btn {
@@ -179,6 +178,7 @@ img {
             padding: 0.35rem 0.75rem;
             border: none;
             text-decoration: none;
+            text-align: center;
             font-size: 1.1rem;
             color: #fff;
             background-color: @accent;
@@ -204,9 +204,11 @@ img {
 
     h1 {
         font-size: 2.2rem;
+        line-height: 2.5rem;
 
         @media @screen-small-above {
             font-size: 2.7rem;
+            line-height: 3rem;
         }
     }
 
@@ -233,15 +235,6 @@ form {
     input[type="radio"] {
         margin-right: 0.5rem;
     }
-    fieldset {
-        border: none;
-        padding: 0;
-        margin: 0 0 1rem 0;
-
-        p {
-            text-align: left;
-        }
-    }
     button[type="submit"] {
         color: #fff;
         cursor: pointer;
@@ -259,5 +252,8 @@ form {
         &:hover {
             background-color: @accent-light;
         }
+    }
+    select {
+        display: block;
     }
 }

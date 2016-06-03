@@ -1,12 +1,4 @@
 <form class="user-info">
-    <fieldset class="pipe-types">
-        <legend>What type of pipes do you have?</legend>
-        <p><input type="radio" id="{{ id }}-type-lead" name="pipe-type" value="lead" {% if id == 'lead' %}checked="checked"{% endif %}><label for="{{ id }}-type-lead">Lead</label></p>
-        <p><input type="radio" id="{{ id }}-type-steel" name="pipe-type" value="steel" {% if id == 'steel' %}checked="checked"{% endif %}><label for="{{ id }}-type-steel">Galvanized steel</label></p>
-        <p><input type="radio" id="{{ id }}-type-copper" name="pipe-type" value="copper" {% if id == 'copper' %}checked="checked"{% endif %}><label for="{{ id }}-type-copper">Copper</label></p>
-        <p><input type="radio" id="{{ id }}-type-plastic" name="pipe-type" value="plastic" {% if id == 'plastic' %}checked="checked"{% endif %}><label for="{{ id }}-type-pvc">PVC (plastic)</label></p>
-    </fieldset>
-
     <label for="{{ id }}-name">{{ COPY.form.name_label }}</label>
     <input id="{{ id }}-name" name="name" type="text" placeholder="{{ COPY.form.name_placeholder|smarty }}" required />
 
