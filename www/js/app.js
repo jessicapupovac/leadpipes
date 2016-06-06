@@ -102,9 +102,11 @@ var onSubmitResponseForm = function(e, data) {
 }
 
 var handleSubmitResponse = function(err, res) {
+    var submitMessage = '<div class="submit-message"><p>Thanks for sharing your information with us.</p><p class="submit-again"><a href="#">Have another address to submit?</a></p></div>';
+
     for (var i = 0; i < responseForms.length; ++i) {
         var responseForm = responseForms[i];
-        responseForm.innerHTML = '<p>Done</p>';
+        responseForm.innerHTML = submitMessage;
     }
     // Reset ttl
     lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
