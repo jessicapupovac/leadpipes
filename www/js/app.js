@@ -19,6 +19,8 @@ var onDocumentLoad = function(e) {
     router = Router(routes);
     router.init([COPY.content.initial_card]);
 
+    checkIfVisited();
+
     var againLink = document.getElementsByClassName('submit-again-link')[0];
     againLink.addEventListener('click', startProcessOver);
 
@@ -30,15 +32,17 @@ var startProcessOver = function(e) {
 
     lscache.remove('sessionID');
 
-    for (var i = 0; i < responseForms.length; ++i) {
-        var responseForm = responseForms[i];
-        responseForm.reset();
-        responseForm.className = 'user-info';
-        var formMessage = formMessages[i];
-        formMessage.className += ' message-hidden';
-    }
+    toggleFormVisibility(true);
 
     navigateToCard('water-meter');
+}
+
+var checkIfVisited = function() {
+    var storedID = lscache.get('sessionID');
+    if (storedID && storedID !== 'undefined') {
+        window.location.href = '#lead';
+        toggleFormVisibility(false);
+    }
 }
 
 var navigateToCard = function(cardID) {
@@ -124,14 +128,25 @@ var onSubmitResponseForm = function(e, data) {
 }
 
 var handleSubmitResponse = function(err, res) {
-    for (var i = 0; i < responseForms.length; ++i) {
-        var responseForm = responseForms[i];
-        responseForm.className += ' form-hidden';
-        var formMessage = formMessages[i];
-        formMessage.className = 'submit-message';
-    }
+    toggleFormVisibility(false);
     // Reset ttl
     lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
+}
+
+var toggleFormVisibility = function(formVisible) {
+    for (var i = 0; i < responseForms.length; ++i) {
+        var responseForm = responseForms[i];
+        var formMessage = formMessages[i];
+
+        if (formVisible) {
+            responseForm.className = 'user-info';
+            formMessage.className += ' submit-message';
+            responseForm.reset();
+        } else {
+            responseForm.className += ' form-hidden';
+            formMessage.className = 'submit-message';
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', onDocumentLoad);
