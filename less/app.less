@@ -257,6 +257,9 @@ img {
 
 form {
     margin-top: 2rem;
+    &.form-hidden {
+        display: none;
+    }
     p {
         margin: 0.25rem 0;
         text-align: center;
@@ -294,17 +297,23 @@ form {
     select {
         display: block;
     }
-    .submit-message {
-        display: block;
-        max-width: 500px;
-        margin: 0 auto;
-        background: rgba(29, 29, 29, 0.5);
-        padding: 1rem 2rem;
-        border: 1px solid #555;
-        color: #ccc;
+}
 
-        a {
-            font-size: 0.8rem;
-        }
+.submit-message {
+    display: block;
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(29, 29, 29, 0.5);
+    padding: 1rem 2rem;
+    border: 1px solid #555;
+    color: #ccc;
+    text-align: center;
+
+    &.message-hidden {
+        display: none;
+    }
+
+    a {
+        font-size: 0.8rem;
     }
 }

@@ -3,6 +3,7 @@ var active;
 var router;
 var sessionID;
 var responseForms;
+var formMessages;
 var backButtons;
 var lang = 'en';
 var request = superagent;
@@ -35,6 +36,7 @@ var navigateToCard = function(cardID) {
         listenBackButtonClick();
 
         responseForms = document.getElementsByClassName('user-info');
+        formMessages = document.getElementsByClassName('submit-message');
 
         if (nextCard.querySelector('form.user-info')) {
             makeSessionID();
@@ -65,7 +67,7 @@ var onBackButtonClick = function(e) {
 
 var makeSessionID = function() {
     var storedID = lscache.get('sessionID');
-    if (!storedID) {
+    if (!storedID || storedID === 'undefined') {
         request
             .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
             .set(requestHeaders)
@@ -78,6 +80,7 @@ var handleSessionRequest = function(err, res) {
         console.error('ajax error', err, res);
     } else {
         lscache.set('sessionID', res.body, APP_CONFIG.LEADPIPES_SESSION_TTL);
+        sessionID = res.body;
     }
 }
 
@@ -102,11 +105,11 @@ var onSubmitResponseForm = function(e, data) {
 }
 
 var handleSubmitResponse = function(err, res) {
-    var submitMessage = '<div class="submit-message"><p>Thanks for sharing your information with us.</p><p class="submit-again"><a href="#">Have another address to submit?</a></p></div>';
-
     for (var i = 0; i < responseForms.length; ++i) {
         var responseForm = responseForms[i];
-        responseForm.innerHTML = submitMessage;
+        responseForm.className += ' form-hidden';
+        var formMessage = formMessages[i];
+        formMessage.className = 'submit-message';
     }
     // Reset ttl
     lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
