@@ -19,7 +19,26 @@ var onDocumentLoad = function(e) {
     router = Router(routes);
     router.init([COPY.content.initial_card]);
 
+    var againLink = document.getElementsByClassName('submit-again-link')[0];
+    againLink.addEventListener('click', startProcessOver);
+
     listenResponseFormSubmit();
+}
+
+var startProcessOver = function(e) {
+    e.preventDefault();
+
+    lscache.remove('sessionID');
+
+    for (var i = 0; i < responseForms.length; ++i) {
+        var responseForm = responseForms[i];
+        responseForm.reset();
+        responseForm.className = 'user-info';
+        var formMessage = formMessages[i];
+        formMessage.className += ' message-hidden';
+    }
+
+    navigateToCard('water-meter');
 }
 
 var navigateToCard = function(cardID) {
