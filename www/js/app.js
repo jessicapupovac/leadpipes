@@ -34,13 +34,13 @@ var startProcessOver = function(e) {
 
     toggleFormVisibility(true);
 
-    navigateToCard('water-meter');
+    router.setRoute('water-meter');
 }
 
 var checkIfVisited = function() {
     var storedID = lscache.get('sessionID');
     if (storedID && storedID !== 'undefined') {
-        window.location.href = '#lead';
+        router.setRoute('lead');
         //toggleFormVisibility(false);
     }
 }
