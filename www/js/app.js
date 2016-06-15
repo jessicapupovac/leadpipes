@@ -41,7 +41,7 @@ var checkIfVisited = function() {
     var storedID = lscache.get('sessionID');
     if (storedID && storedID !== 'undefined') {
         window.location.href = '#lead';
-        toggleFormVisibility(false);
+        //toggleFormVisibility(false);
     }
 }
 
@@ -75,7 +75,7 @@ var navigateToCard = function(cardID) {
 }
 
 var listenBackButtonClick = function() {
-    for (var i = 0; i < backButtons.length; ++i) {
+    for (var i = 0; i < backButtons.length; i++) {
         var backButton = backButtons[i];
         backButton.addEventListener('click', onBackButtonClick);
     }
@@ -95,6 +95,8 @@ var makeSessionID = function() {
             .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
             .set(requestHeaders)
             .end(handleSessionRequest);
+    } else {
+        toggleFormVisibility(false);
     }
 }
 
@@ -108,7 +110,7 @@ var handleSessionRequest = function(err, res) {
 }
 
 var listenResponseFormSubmit = function() {
-    for (var i = 0; i < responseForms.length; ++i) {
+    for (var i = 0; i < responseForms.length; i++) {
         var responseForm = responseForms[i];
         responseForm.addEventListener('submit', onSubmitResponseForm);
     }
@@ -134,13 +136,13 @@ var handleSubmitResponse = function(err, res) {
 }
 
 var toggleFormVisibility = function(formVisible) {
-    for (var i = 0; i < responseForms.length; ++i) {
+    for (var i = 0; i < responseForms.length; i++) {
         var responseForm = responseForms[i];
         var formMessage = formMessages[i];
 
         if (formVisible) {
             responseForm.className = 'user-info';
-            formMessage.className += ' submit-message';
+            formMessage.className += ' message-hidden';
             responseForm.reset();
         } else {
             responseForm.className += ' form-hidden';
