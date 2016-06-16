@@ -11,10 +11,10 @@ import app_config
 import csv
 import logging
 import oauth
+import os
 import static
 import us
 
-from copydoc import CopyDoc
 from flask import Flask, make_response, render_template
 from render_utils import make_context, smarty_filter, urlencode_filter, markdown_filter
 from werkzeug.debug import DebuggedApplication
@@ -50,16 +50,11 @@ def _make_card_list():
     """
     cards = []
 
-    with open('data/doclist.csv', 'r') as f:
-        reader = csv.reader(f)
-        ids = [item[0] for item in list(reader)]
-
-    ids = sorted(ids)
-
-    for id in ids:
-        with open('data/%s.html' % id, 'r') as f:
+    for filename in os.listdir('content'):
+        id, extension = filename.split('.')
+        with open('content/%s' % filename) as f:
             html = f.read()
-        cards.append([id, CopyDoc(html)])
+        cards.append([id, html])
 
     return cards
 
