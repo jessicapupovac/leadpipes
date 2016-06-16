@@ -99,14 +99,11 @@ var onBackButtonClick = function(e) {
 }
 
 var makeSessionID = function() {
-    var storedID = lscache.get('sessionID');
-    if (!storedID || storedID === 'undefined') {
+    if (!sessionID) {
         request
             .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
             .set(requestHeaders)
             .end(handleSessionRequest);
-    } else {
-        toggleFormVisibility(false);
     }
 }
 
@@ -128,7 +125,7 @@ var listenResponseFormSubmit = function() {
 var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
-    data['sessionid'] = lscache.get('sessionID');
+    data['sessionid'] = sessionID;
     // TODO add hash id of user's result page to posted data
     var currentRoute = router.getRoute();
     resultPage = currentRoute[0];
