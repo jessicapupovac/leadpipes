@@ -32,8 +32,15 @@ var initInterface = function() {
     formMessages = document.getElementsByClassName('submit-message');
     listenResponseFormSubmit();
 
-    var againLink = document.getElementsByClassName('submit-again-link')[0];
-    againLink.addEventListener('click', startProcessOver);
+    listenAgainLinkClick();
+};
+
+var listenAgainLinkClick = function() {
+    var againLinks = document.getElementsByClassName('submit-again-link');
+    for (var i = 0; i < againLinks.length; i++) {
+        var againLink = againLinks[i];
+        againLink.addEventListener('click', startProcessOver);
+    }
 };
 
 var startProcessOver = function(e) {
@@ -121,9 +128,10 @@ var listenResponseFormSubmit = function() {
 var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
-    data.sessionid = lscache.get('sessionID');
+    data['sessionid'] = lscache.get('sessionID');
     // TODO add hash id of user's result page to posted data
-    resultPage = 'lead';
+    var currentRoute = router.getRoute();
+    resultPage = currentRoute[0];
     data['resultPage'] = resultPage;
 
     request
