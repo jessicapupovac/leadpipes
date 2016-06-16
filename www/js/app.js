@@ -2,6 +2,7 @@
 var active;
 var router;
 var sessionID;
+var resultPage;
 var responseForms;
 var formMessages;
 var backButtons;
@@ -30,7 +31,8 @@ var onDocumentLoad = function(e) {
 var startProcessOver = function(e) {
     e.preventDefault();
 
-    lscache.remove('sessionID');
+    resultPage = null;
+    lscache.remove('cachedResult');
 
     toggleFormVisibility(true);
 
@@ -38,10 +40,10 @@ var startProcessOver = function(e) {
 }
 
 var checkIfVisited = function() {
-    var storedID = lscache.get('sessionID');
-    if (storedID && storedID !== 'undefined') {
-        router.setRoute('lead');
-        //toggleFormVisibility(false);
+    var cachedResult = lscache.get('resultPage');
+    if (cachedResult && cachedResult !== 'undefined') {
+        router.setRoute(cachedResult);
+        toggleFormVisibility(false);
     }
 }
 
@@ -87,7 +89,6 @@ var onBackButtonClick = function(e) {
     window.history.go(-1);
 }
 
-
 var makeSessionID = function() {
     var storedID = lscache.get('sessionID');
     if (!storedID || storedID === 'undefined') {
@@ -104,7 +105,6 @@ var handleSessionRequest = function(err, res) {
     if (err || !res.ok) {
         console.error('ajax error', err, res);
     } else {
-        lscache.set('sessionID', res.body, APP_CONFIG.LEADPIPES_SESSION_TTL);
         sessionID = res.body;
     }
 }
@@ -120,6 +120,10 @@ var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
     data.sessionid = lscache.get('sessionID');
+    // TODO add hash id of user's result page to posted data
+    resultPage = 'lead';
+    data['resultPage'] = resultPage;
+
     request
         .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
         .send(data)
@@ -132,7 +136,7 @@ var onSubmitResponseForm = function(e, data) {
 var handleSubmitResponse = function(err, res) {
     toggleFormVisibility(false);
     // Reset ttl
-    lscache.set('sessionID', sessionID, APP_CONFIG.LEADPIPES_SESSION_TTL);
+    lscache.set('resultPage', resultPage, APP_CONFIG.LEADPIPES_SESSION_TTL);
 }
 
 var toggleFormVisibility = function(formVisible) {

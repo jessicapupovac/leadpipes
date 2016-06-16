@@ -10,6 +10,7 @@
 /*@accent: #E2D050;*/
 @accent: #E46629;
 @accent-light: darken(@accent, 10%);
+@accent-public: #2a49bf;
 
 // Fonts
 // -------------------------
@@ -87,7 +88,7 @@ body:before {
     /*-moz-filter   : brightness(15%);*/
     /*-webkit-filter: brightness(15%);*/
     /*-o-filter     : brightness(15%);*/
-    background: url('https://farm1.staticflickr.com/118/292049129_3ed8186ef3_b_d.jpg') center/cover no-repeat fixed;
+    background: url('../assets/photos/leadpipe_ap.jpg') center/cover no-repeat fixed;
     opacity: 0.15;
 }
 
@@ -171,6 +172,7 @@ img {
         text-decoration: none;
         border-bottom: 2px solid @accent;
         transition: background-color 150ms ease;
+        min-width: 100px;
 
         &:hover {
             color: @accent;
@@ -256,6 +258,19 @@ img {
             }
         }
     }
+
+    .text-highlight {
+        padding: 2px 4px;
+        font-weight: bold;
+
+        &.highlight-public {
+            background: @accent-public;
+        }
+
+        &.highlight-private {
+            background: @accent;
+        }
+    }
 }
 
 form {
@@ -270,7 +285,7 @@ form {
     label {
         margin-bottom: 1rem;
     }
-    input[type="text"] {
+    input[type="text"], input[type="email"] {
         margin-bottom: 1rem;
         width: 100%;
         padding: 0.25rem 0.5rem;
