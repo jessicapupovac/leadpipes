@@ -47,7 +47,7 @@ var startProcessOver = function(e) {
     e.preventDefault();
 
     resultPage = null;
-    lscache.remove('cachedResult');
+    lscache.remove('resultPage');
 
     toggleFormVisibility(true);
 
