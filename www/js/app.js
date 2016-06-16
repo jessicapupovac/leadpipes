@@ -20,13 +20,21 @@ var onDocumentLoad = function(e) {
     router = Router(routes);
     router.init([COPY.content.initial_card]);
 
+    initInterface();
     checkIfVisited();
+}
+
+var initInterface = function() {
+    backButtons = document.getElementsByClassName('back');
+    listenBackButtonClick();
+
+    responseForms = document.getElementsByClassName('user-info');
+    formMessages = document.getElementsByClassName('submit-message');
+    listenResponseFormSubmit();
 
     var againLink = document.getElementsByClassName('submit-again-link')[0];
     againLink.addEventListener('click', startProcessOver);
-
-    listenResponseFormSubmit();
-}
+};
 
 var startProcessOver = function(e) {
     e.preventDefault();
@@ -56,12 +64,6 @@ var navigateToCard = function(cardID) {
         }
         nextCard.classList.add('active');
         active = nextCard;
-
-        backButtons = document.getElementsByClassName('back');
-        listenBackButtonClick();
-
-        responseForms = document.getElementsByClassName('user-info');
-        formMessages = document.getElementsByClassName('submit-message');
 
         if (nextCard.querySelector('form.user-info')) {
             makeSessionID();
