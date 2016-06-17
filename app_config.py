@@ -20,7 +20,7 @@ NAMES
 """
 # Project name to be used in urls
 # Use dashes, not underscores!
-PROJECT_SLUG = 'leadpipes'
+PROJECT_SLUG = 'aagd9797hsn9fb34t3tnkjt3'
 
 # Project name to be used in file paths
 PROJECT_FILENAME = 'leadpipes'
