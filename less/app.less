@@ -158,6 +158,12 @@ img {
     }
 }
 
+p.img-credit {
+    font-size: 0.7rem;
+    color: #999;
+    text-align: right;
+}
+
 .card {
     display: none;
     -webkit-font-smoothing: antialiased;
@@ -227,6 +233,46 @@ img {
         display: block;
         color: #ccc;
         font-weight: bold;
+    }
+
+    .illo-wrap {
+        position: relative;
+        margin: 0 auto;
+        max-width: 40rem;
+
+        .illo-anno {
+            display: block;
+            position: absolute;
+            font-size: 0.9rem;
+            line-height: 1rem;
+            text-align: left;
+
+            @media screen and (max-width: 420px) {
+                font-size: 0.8rem;
+            }
+
+            &.anno-property-line {
+                bottom: 64%;
+                left: 68%;
+            }
+
+            &.anno-water-meter {
+                bottom: 46%;
+                left: 33%;
+                text-align: center;
+            }
+
+            &.anno-water-main {
+                top: 85%;
+                left: 65%;
+            }
+
+            &.anno-service-line {
+                top: 85%;
+                right: 54%;
+                font-weight: bold;
+            }
+        }
     }
 
     .img-wrap {
