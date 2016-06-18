@@ -13,7 +13,6 @@ var requestHeaders = {
 var onDocumentLoad = function(e) {
     sessionID = lscache.get('LeadPipesSessionID');
     initInterface();
-    checkIfVisited();
     initRouter();
 }
 
@@ -43,6 +42,7 @@ var handleSessionRequest = function(err, res) {
 }
 
 var setupSession = function() {
+    checkIfSubmitted();
     if (!APP_CONFIG.DEBUG) {
         lscache.set('LeadPipesSessionID', sessionID, parseInt(COPY.content.session_ttl));
         window.location.hash = '';
@@ -78,7 +78,7 @@ var startProcessOver = function(e) {
     router.setRoute('water-meter');
 }
 
-var checkIfVisited = function() {
+var checkIfSubmitted = function() {
     var cachedResult = lscache.get('resultPage');
     if (cachedResult && cachedResult !== 'undefined') {
         router.setRoute(cachedResult);
