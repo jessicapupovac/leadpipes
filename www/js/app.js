@@ -4,14 +4,14 @@ var router;
 var resultPage;
 var responseForms;
 var formMessages;
-var backButtons;
-var lang = 'en';
+var sessionID;
 var request = superagent;
 var requestHeaders = {
     'Accept': 'application/json'
 }
 
 var onDocumentLoad = function(e) {
+    sessionID = lscache.get('LeadPipesSessionID');
     initInterface();
     checkIfVisited();
     initRouter();
@@ -23,14 +23,13 @@ var initRouter = function() {
     }
     router = Router(routes);
 
-    var sessionID = lscache.get('LeadPipesSessionID');
     if (!sessionID) {
         request
             .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
             .set(requestHeaders)
             .end(handleSessionRequest);
     } else {
-        router.init();
+        setupSession();
     }
 }
 
@@ -38,16 +37,26 @@ var handleSessionRequest = function(err, res) {
     if (err || !res.ok) {
         console.error('ajax error', err, res);
     } else {
-        lscache.set('LeadPipesSessionID', res.body, parseInt(COPY.content.session_ttl));
-        window.location.hash = '';
-        router.init([COPY.content.initial_card]);
+        sessionID = res.body;
+        setupSession();
     }
 }
 
+var setupSession = function() {
+    if (!APP_CONFIG.DEBUG) {
+        lscache.set('LeadPipesSessionID', sessionID, parseInt(COPY.content.session_ttl));
+        window.location.hash = '';
+    }
+    router.init([COPY.content.initial_card]);
+}
+
 var initInterface = function() {
+    responseForms = document.getElementsByClassName('user-info');
+    formMessages = document.getElementsByClassName('submit-message');
+
     listenBackButtonClick();
-    listenResponseFormSubmit();
     listenAgainLinkClick();
+    listenResponseFormSubmit();
 };
 
 var listenAgainLinkClick = function() {
@@ -90,6 +99,7 @@ var navigateToCard = function(cardID) {
         ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
+        router.setRoute(COPY.content.initial_card);
     }
 }
 
@@ -108,8 +118,6 @@ var onBackButtonClick = function(e) {
 }
 
 var listenResponseFormSubmit = function() {
-    responseForms = document.getElementsByClassName('user-info');
-    formMessages = document.getElementsByClassName('submit-message');
     for (var i = 0; i < responseForms.length; i++) {
         var responseForm = responseForms[i];
         responseForm.addEventListener('submit', onSubmitResponseForm);
@@ -120,11 +128,7 @@ var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
     data['sessionid'] = sessionID;
-    // TODO add hash id of user's result page to posted data
-    var currentRoute = router.getRoute();
-    resultPage = currentRoute[0];
-    data['resultPage'] = resultPage;
-
+    data['resultPage'] = active.id;
     request
         .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
         .send(data)
