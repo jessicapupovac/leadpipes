@@ -22,24 +22,7 @@ def update():
     """
     Get spreadsheet and documents
     """
-    update_docs()
     update_copytext()
-
-
-@task
-def update_docs():
-    credentials = get_credentials()
-    folder_url = FOLDER_URL_TEMPLATE % app_config.GOOGLE_DOCS_FOLDER_ID
-    response = app_config.authomatic.access(credentials, folder_url)
-
-    id_list = []
-    for filedata in response.data.get('files', []):
-        id_list.append([filedata['name']])
-        get_document(filedata['id'], 'data/%s.html' % filedata['name'])
-
-    with open('data/doclist.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerows(id_list)
 
 
 @task
