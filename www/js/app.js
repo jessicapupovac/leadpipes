@@ -1,38 +1,62 @@
 // Global variables
 var active;
 var router;
-var sessionID;
 var resultPage;
 var responseForms;
 var formMessages;
-var backButtons;
-var lang = 'en';
+var sessionID;
 var request = superagent;
 var requestHeaders = {
     'Accept': 'application/json'
 }
 
 var onDocumentLoad = function(e) {
+    sessionID = lscache.get('LeadPipesSessionID');
+    initInterface();
+    checkIfVisited();
+    initRouter();
+}
+
+var initRouter = function() {
     var routes = {
         '/:cardID': navigateToCard
     }
-
     router = Router(routes);
-    router.init([COPY.content.initial_card]);
 
-    initInterface();
-    checkIfVisited();
+    if (!sessionID) {
+        request
+            .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
+            .set(requestHeaders)
+            .end(handleSessionRequest);
+    } else {
+        setupSession();
+    }
+}
+
+var handleSessionRequest = function(err, res) {
+    if (err || !res.ok) {
+        console.error('ajax error', err, res);
+    } else {
+        sessionID = res.body;
+        setupSession();
+    }
+}
+
+var setupSession = function() {
+    if (!APP_CONFIG.DEBUG) {
+        lscache.set('LeadPipesSessionID', sessionID, parseInt(COPY.content.session_ttl));
+        window.location.hash = '';
+    }
+    router.init([COPY.content.initial_card]);
 }
 
 var initInterface = function() {
-    backButtons = document.getElementsByClassName('back');
-    listenBackButtonClick();
-
     responseForms = document.getElementsByClassName('user-info');
     formMessages = document.getElementsByClassName('submit-message');
-    listenResponseFormSubmit();
 
+    listenBackButtonClick();
     listenAgainLinkClick();
+    listenResponseFormSubmit();
 };
 
 var listenAgainLinkClick = function() {
@@ -63,6 +87,7 @@ var checkIfVisited = function() {
 }
 
 var navigateToCard = function(cardID) {
+    if (cardID == '') cardID = COPY.content.initial_card;
     document.body.scrollTop = 0;
     var nextCard = document.getElementById(cardID);
     if (nextCard) {
@@ -71,21 +96,15 @@ var navigateToCard = function(cardID) {
         }
         nextCard.classList.add('active');
         active = nextCard;
-
-        if (nextCard.querySelector('form.user-info')) {
-            makeSessionID();
-        }
-
         ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
-    }
-    if (!APP_CONFIG.DEBUG) {
-        router.setRoute('');
+        router.setRoute(COPY.content.initial_card);
     }
 }
 
 var listenBackButtonClick = function() {
+    var backButtons = document.getElementsByClassName('back');
     for (var i = 0; i < backButtons.length; i++) {
         var backButton = backButtons[i];
         backButton.addEventListener('click', onBackButtonClick);
@@ -96,23 +115,6 @@ var listenBackButtonClick = function() {
 var onBackButtonClick = function(e) {
     e.preventDefault();
     window.history.go(-1);
-}
-
-var makeSessionID = function() {
-    if (!sessionID) {
-        request
-            .get(APP_CONFIG.LEADPIPES_API_BASEURL + '/uuid')
-            .set(requestHeaders)
-            .end(handleSessionRequest);
-    }
-}
-
-var handleSessionRequest = function(err, res) {
-    if (err || !res.ok) {
-        console.error('ajax error', err, res);
-    } else {
-        sessionID = res.body;
-    }
 }
 
 var listenResponseFormSubmit = function() {
@@ -126,11 +128,7 @@ var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
     data['sessionid'] = sessionID;
-    // TODO add hash id of user's result page to posted data
-    var currentRoute = router.getRoute();
-    resultPage = currentRoute[0];
-    data['resultPage'] = resultPage;
-
+    data['resultPage'] = active.id;
     request
         .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
         .send(data)
