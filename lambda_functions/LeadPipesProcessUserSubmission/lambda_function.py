@@ -1,21 +1,16 @@
 import boto3
 import decimal
-import json
 import time
 import uuid
 
 from boto3.dynamodb.conditions import Key
 from boto3.dynamodb.types import DYNAMODB_CONTEXT
 from collections import Mapping, Sequence, Set
-from decimal import Decimal
-from mapbox import Geocoder
 
 # Inhibit Inexact Exceptions
 DYNAMODB_CONTEXT.traps[decimal.Inexact] = 0
 # Inhibit Rounded Exceptions
 DYNAMODB_CONTEXT.traps[decimal.Rounded] = 0
-
-ADDRESS_TEMPLATE = '{address}, {city}, {state}'
 
 
 def _sanitize(data):
@@ -45,9 +40,7 @@ def lambda_handler(event, context):
     """
     Create a new form response.
     """
-
     resource = boto3.resource('dynamodb')
-    client = boto3.client('dynamodb')
 
     session_table = resource.Table('LeadPipesSession')
     session_query = session_table.query(
@@ -55,41 +48,21 @@ def lambda_handler(event, context):
     )
 
     if not len(session_query['Items']):
-        return {'message': 'Bad/missing session ID'}
-
-
-    config_table = resource.Table('LeadPipesConfig')
-    mapbox_api_key_query = config_table.query(
-        KeyConditionExpression=Key('key').eq('mapbox_api_key')
-    )
-
-    mapbox_api_key = mapbox_api_key_query['Items'][0]['value']
-
-    full_address = ADDRESS_TEMPLATE.format(**event)
-    geocoder = Geocoder(access_token=mapbox_api_key)
-    geo_resp = geocoder.forward(full_address)
-
-    geo_data = geo_resp.geojson()
-
-    if not len(geo_data['features']):
-        return {'message': 'Bad address'}
-    else:
-        top_hit = geo_data['features'][0]
+        return {'errorMessage': 'session error'}
 
     item = _sanitize({
-            'id': unicode(uuid.uuid4()),
-            'timestamp': unicode(time.time()),
-            'sessionid': event.get('sessionid'),
-            'submitted_address': full_address,
-            'processed_address': top_hit.get('place_name', ''),
-            'email': event.get('email'),
-            'name': event.get('name'),
-            'pipetype': event.get('pipe-type'),
-            'geometry': top_hit.get('geometry'),
-            'geojson': geo_data,
+        'id': unicode(uuid.uuid4()),
+        'timestamp': unicode(time.time()),
+        'sessionid': event.get('sessionid'),
+        'email': event.get('email'),
+        'name': event.get('name'),
+        'pipetype': event.get('pipe-type'),
+        'address': event.get('address'),
+        'city': event.get('city'),
+        'state': event.get('state')
     })
 
     response_table = resource.Table('LeadPipesResponse')
     response_table.put_item(Item=item)
 
-    return {'message': 'Form from {sessionid} submitted successfully.'.format(**event)}
+    return {'message': 'Form submitted successfully.'.format(**event)}
