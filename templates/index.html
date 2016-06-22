@@ -8,27 +8,11 @@
     </div>
 </div>
 <div id="content">
-    {% for id, content in cards %}
-    <section id="{{ id }}" class="card">
-        {{ content|safe }}
-        {% if id in END_CARDS %}
-        {% include '_form.html' %}
-        {% endif %}
-        {% if COPY.content.initial_card.__unicode__() != id %}
-        <p><a href="#" class="btn back">Back</a></p>
-        {% endif %}
+    <section id="intro" class="card">
+        <h1>Nothing here yet.</h1>
+        <p>This story hasn't been published yet. Please come back Friday, June 24 to find out if you have lead pipes in your home.</p>
+        <p class="img-credit bg-photo-credit">Photo: Seth Perlman/AP</p>
     </section>
-    {% endfor %}
-    {% if DEBUG %}
-    <section id="index" class="card">
-        <h1>Page index</h1>
-        <ul>
-            {% for id, content in cards %}
-            <li><a href="#{{ id }}">{{ id }}</a></li>
-            {% endfor %}
-        </ul>
-    </section>
-    {% endif %}
 </div>
 
 {% endblock %}
