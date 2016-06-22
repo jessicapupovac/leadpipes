@@ -1,0 +1,26 @@
+<h1>
+ Find the pipe
+</h1>
+<p>
+ It should be 1 inch in diameter and enter the house from a few feet underground. It'll be attached to an inlet valve, which looks something like this.
+</p>
+<p>
+ <div class="img-wrap">
+  <img class="inline-img inline-3" src="assets/photos/crops/valve-1.jpg"/>
+  <img class="inline-img inline-3" src="assets/photos/crops/valve-2.jpg"/>
+  <img class="inline-img inline-3" src="assets/photos/crops/valve-3.jpg"/>
+ </div>
+</p>
+<p>
+ Found it?
+</p>
+<p>
+ <a class="btn" href="#is-it-plastic">
+  Yep, I think so
+ </a>
+</p>
+<p>
+ <a class="btn" href="#no-pipe">
+  Nope
+ </a>
+</p>
