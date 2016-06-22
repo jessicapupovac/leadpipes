@@ -241,11 +241,17 @@ p.img-credit {
     h4 { margin-top: 3rem; }
 
     .byline {
-        font-size: 1rem;
+        font-size: 0.7rem;
         line-height: 1.3rem;
-        display: block;
         color: #ccc;
-        font-weight: bold;
+    }
+
+    .disclaimer {
+        margin-top: 2rem;
+        font-size: 0.7rem;
+        a {
+            border-width: 1px;
+        }
     }
 
     .illo-wrap {
@@ -288,9 +294,9 @@ p.img-credit {
         }
     }
 
-    .img-wrap {
-        text-align: center;
-    }
+    /*.img-wrap {*/
+        /*text-align: center;*/
+    /*}*/
 
     img.inline-img {
         box-sizing: border-box;
@@ -349,6 +355,12 @@ p.img-credit {
 
         &.highlight-private {
             background: fade(@accent, 80%);
+        }
+    }
+
+    &#intro {
+        h1 {
+            margin-bottom: 0;
         }
     }
 }
