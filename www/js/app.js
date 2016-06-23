@@ -12,8 +12,8 @@ var requestHeaders = {
 
 var onDocumentLoad = function(e) {
     sessionID = lscache.get('LeadPipesSessionID');
-    initInterface();
     initRouter();
+    initInterface();
 }
 
 var initRouter = function() {
@@ -57,6 +57,8 @@ var initInterface = function() {
     listenBackButtonClick();
     listenAgainLinkClick();
     listenResponseFormSubmit();
+
+    loadAddEventButton();
 };
 
 var listenAgainLinkClick = function() {
@@ -158,6 +160,23 @@ var toggleFormVisibility = function(formVisible) {
             formMessage.className = 'submit-message';
         }
     }
+}
+
+var loadAddEventButton = function() {
+    var fmt = 'MM/DD/YYYY hh:mm A';
+    var start = moment().startOf('hour').add(1, 'hours');
+    var end = start.clone().add(0.5, 'hours')
+    var addEventButtonElement = document.getElementById('calendar-button');
+    addEventButtonElement.innerHTML = JST.addeventbutton({
+        start: start.format(fmt),
+        end: end.format(fmt)
+    });
+
+    var script= document.createElement('script');
+    script.type= 'text/javascript';
+    script.src= '//addevent.com/libs/atc/1.6.1/atc.min.js';
+    script.async = true;
+    document.body.appendChild(script);
 }
 
 document.addEventListener('DOMContentLoaded', onDocumentLoad);
