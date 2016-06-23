@@ -28,6 +28,12 @@
             {% endfor %}
         </ul>
     </section>
+    <section id="copy">
+        {% for id, content in cards %}
+        {{ content|safe }}
+        <hr/>
+        {% endfor %}
+    </section>
     {% endif %}
 </div>
 
