@@ -175,6 +175,14 @@ p.img-credit {
     font-size: 0.7rem;
     color: #999;
     text-align: right;
+
+    &.bg-photo-credit {
+        text-align: left;
+    }
+
+    @media @screen-medium {
+        font-size: 0.8rem;
+    }
 }
 
 .card {
@@ -244,6 +252,10 @@ p.img-credit {
         font-size: 0.7rem;
         line-height: 1.3rem;
         color: #ccc;
+
+        @media @screen-medium {
+            font-size: 0.8rem;
+        }
     }
 
     .disclaimer {
@@ -251,6 +263,9 @@ p.img-credit {
         font-size: 0.7rem;
         a {
             border-width: 1px;
+        }
+        @media @screen-medium {
+            font-size: 0.8rem;
         }
     }
 
@@ -446,16 +461,42 @@ form {
 
 .calendar-button {
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
+
     .addeventatc {
-        -webkit-filter: invert(1);
-        filter: invert(1);
-        -ms-transform: scale(0.9, 0.9); /* IE 9 */
-        -webkit-transform: scale(0.9, 0.9); /* Safari */
-        transform: scale(0.9, 0.9);
+        .gotham();
+        background: none;
+        border: none !important;
+        font-size: 0.7rem;
+        font-weight: bold;
+        color: #fff !important; // unfortunately the original styles for this used important, which is dumb
+        padding-left: 40px;
+
+        @media @screen-medium {
+            font-size: 0.8rem;
+        }
+
+        &:hover {
+            background: none;
+            border: none;
+            font-size: 0.7rem;
+
+            @media @screen-medium {
+                font-size: 0.8rem;
+            }
+        }
+
+        .addeventatc_icon {
+            background: url(../assets/icon-calendar-t5.png) no-repeat;
+        }
+
         a { 
             border: none;
         }
+    }
+
+    @media @screen-medium {
+        font-size: 0.8rem;
     }
 }
 
