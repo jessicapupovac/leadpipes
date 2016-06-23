@@ -256,8 +256,15 @@ p.img-credit {
 
     .illo-wrap {
         position: relative;
-        margin: 0 auto;
+        margin: 0 auto 30px;
         max-width: 40rem;
+
+        p.img-credit {
+            display: block;
+            position: absolute;
+            top: 100%;
+            right: 0;
+        }
 
         .illo-anno {
             display: block;
@@ -331,15 +338,22 @@ p.img-credit {
             float: left;
             width: 48%;
 
+            p:first-child {
+                margin-top: 0;
+            }
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+
             &.wrap-right {
                 float: right;
                 margin-left: 4%;
             }
 
-            @media screen and (max-width: 420px) {
+            @media screen and (max-width: 500px) {
                 &, &.wrap-right {
                     width: 100%;
-                    margin: 0;
                 }
             }
         }
