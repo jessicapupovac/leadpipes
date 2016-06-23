@@ -169,7 +169,8 @@ var loadAddEventButton = function() {
     var addEventButtonElement = document.getElementById('calendar-button');
     addEventButtonElement.innerHTML = JST.addeventbutton({
         start: start.format(fmt),
-        end: end.format(fmt)
+        end: end.format(fmt),
+        license: APP_CONFIG.ADDEVENT_LICENSE_KEY
     });
 
     var script= document.createElement('script');
@@ -177,6 +178,11 @@ var loadAddEventButton = function() {
     script.src= '//addevent.com/libs/atc/1.6.1/atc.min.js';
     script.async = true;
     document.body.appendChild(script);
+    script.onload = function() {
+        addeventatc.settings({
+            license: APP_CONFIG.ADDEVENT_LICENSE_KEY
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', onDocumentLoad);

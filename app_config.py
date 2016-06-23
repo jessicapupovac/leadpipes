@@ -47,6 +47,8 @@ LAMBDA_FUNCTIONS = [
     'LeadPipesProcessUserSubmission',
 ]
 
+ADDEVENT_LICENSE_KEY = 'aNcuShirVzIJlocSHmKh18678'
+
 """
 APP CONFIGURATION
 """
