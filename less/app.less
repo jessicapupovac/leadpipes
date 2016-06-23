@@ -110,6 +110,12 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
 }
 
+hr {
+    border-style: solid;
+    border-top: none;
+    border-bottom: 1px solid #999;
+}
+
 #content {
     max-width: 50rem;
     padding: 10px 30px;
@@ -505,6 +511,11 @@ form {
     list-style: none;
     text-align: center;
     padding: 0;
+
+    &.share-intro {
+        text-align: left;
+        margin: 0 auto 0 -13px;
+    }
 
     li.share-tools__service {
         display: inline-block;
