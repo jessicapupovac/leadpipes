@@ -4,15 +4,15 @@
 By Rae Ellen Bichell, David Eads, Ha-Hoa Hamano, Morgan McCloy, Katie Park, Jessica Pupovac
 </p>
 
-<ul class="share-tools share-intro">
+<ul class="share-tools">
     <li class="share-tools__service service-facebook">
-        <a href="https://www.facebook.com/dialog/feed?app_id={{ COPY.share.facebook_app_id }}&amp;link={{ COPY.share.share_url|urlencode }}&amp;name={{ COPY.share.facebook_title|urlencode }}&amp;picture={{ COPY.share.facebook_image_url|urlencode }}&amp;redirect_uri={{ SHARE_URL|urlencode }}" target="_blank" onclick="_gaq.push(['_trackEvent', '{{ PROJECT_SLUG }}', 'facebook', 'share-discuss']);"><i class="icon icon-facebook share-icon"></i> <b>Share on Facebook</b></a>
+        <a href="https://www.facebook.com/dialog/feed?app_id=138837436154588&amp;link=http%3A%2F%2Fwww.npr.org%2Fpipes&amp;name=Find+lead+pipes+in+your+home&amp;picture=http%3A%2F%2Fapps.npr.org%2Fleadpipes%2Fassets%2Fsocial-img.jpg&amp;redirect_uri=http%3A%2F%2Fapps.npr.org%2Fleadpipes%2F" target="_blank" onclick="_gaq.push(['_trackEvent', 'leadpipes', 'facebook', 'share-discuss']);"><i class="icon icon-facebook share-icon"></i> <b>Share on Facebook</b></a>
     </li>
     <li class="share-tools__service service-twitter">
-        <a href="http://twitter.com/share?text={{ COPY.share.twitter_text|urlencode }}&amp;url={{ COPY.share.share_url|urlencode }}" target="_blank" onclick="_gaq.push(['_trackEvent', '{{ PROJECT_SLUG }}', 'tweet', 'share-discuss']);"><i class="icon icon-twitter share-icon"></i> <b>Share on Twitter</b></a>
+        <a href="http://twitter.com/share?text=Do+%23leadpipes+bring+water+into+your+home%3F+Find+out+in+10+minutes.+All+you%E2%80%99ll+need+is+a+key+and+a+magnet.&amp;url=http%3A%2F%2Fwww.npr.org%2Fpipes" target="_blank" onclick="_gaq.push(['_trackEvent', 'leadpipes', 'tweet', 'share-discuss']);"><i class="icon icon-twitter share-icon"></i> <b>Share on Twitter</b></a>
     </li>
     <li class="share-tools__service service-email">
-        <a href="mailto:?body={{ COPY.share.email_body|safe }}&amp;subject={{ COPY.share.email_subject }}" onclick="_gaq.push(['_trackEvent', '{{ PROJECT_SLUG }}', 'email', 'share-discuss']);"><i class="icon icon-mail-alt share-icon"></i> <b>Email to a friend</b></a>
+        <a href="mailto:?body=Do lead pipes bring water into your home? Find out in 10 minutes. All you&rsquo;ll need is a key and a magnet. http://www.npr.org/pipes from NPR.&amp;subject=Find lead pipes in your home" onclick="_gaq.push(['_trackEvent', 'leadpipes', 'email', 'share-discuss']);"><i class="icon icon-mail-alt share-icon"></i> <b>Email to a friend</b></a>
     </li>
 </ul>
 
