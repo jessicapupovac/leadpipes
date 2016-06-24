@@ -9,7 +9,7 @@
 </div>
 <div id="content">
     {% for id, content in cards %}
-    <section id="{{ id }}" class="card{% if COPY.content.initial_card.__unicode__() == id %} active{% endif %}">
+    <section id="{{ id }}" class="card">
         {{ content|safe }}
         {% if id in END_CARDS %}
         {% include '_form.html' %}
