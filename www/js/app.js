@@ -12,8 +12,8 @@ var requestHeaders = {
 
 var onDocumentLoad = function(e) {
     sessionID = lscache.get('LeadPipesSessionID');
-    initRouter();
     initInterface();
+    initRouter();
 }
 
 var initRouter = function() {
@@ -54,11 +54,14 @@ var initInterface = function() {
     responseForms = document.getElementsByClassName('user-info');
     formMessages = document.getElementsByClassName('submit-message');
 
+    active = document.querySelector('.card.active');
+
     listenBackButtonClick();
     listenAgainLinkClick();
     listenResponseFormSubmit();
 
     loadAddEventButton();
+
 };
 
 var listenAgainLinkClick = function() {
@@ -90,12 +93,9 @@ var checkIfSubmitted = function() {
 
 var navigateToCard = function(cardID) {
     if (cardID == '') cardID = COPY.content.initial_card;
-    document.body.scrollTop = 0;
     var nextCard = document.getElementById(cardID);
     if (nextCard) {
-        if (active) {
-            active.classList.remove('active');
-        }
+        active.classList.remove('active');
         nextCard.classList.add('active');
         active = nextCard;
         ANALYTICS.trackEvent('navigate', cardID);
@@ -103,6 +103,7 @@ var navigateToCard = function(cardID) {
         console.error('Route "' + cardID + '" does not exist');
         router.setRoute(COPY.content.initial_card);
     }
+    setTimeout(function() { document.body.scrollTop = 0 }, 0);
 }
 
 var listenBackButtonClick = function() {
