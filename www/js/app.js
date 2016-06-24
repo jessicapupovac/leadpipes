@@ -14,6 +14,7 @@ var onDocumentLoad = function(e) {
     sessionID = lscache.get('LeadPipesSessionID');
     initInterface();
     initRouter();
+    setTimeout(function() { window.scrollTo(0, 0);}, 1);
 }
 
 var initRouter = function() {
@@ -95,15 +96,15 @@ var navigateToCard = function(cardID) {
     if (cardID == '') cardID = COPY.content.initial_card;
     var nextCard = document.getElementById(cardID);
     if (nextCard) {
-        active.classList.remove('active');
+        if (active) active.classList.remove('active');
         nextCard.classList.add('active');
+        setTimeout(function() { window.scrollTo(0, 0);}, 1);
         active = nextCard;
         ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
         router.setRoute(COPY.content.initial_card);
     }
-    setTimeout(function() { document.body.scrollTop = 0 }, 0);
 }
 
 var listenBackButtonClick = function() {
