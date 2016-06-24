@@ -147,7 +147,7 @@ var onSubmitResponseForm = function(e, data) {
     e.preventDefault();
     var data = serialize(e.target);
     data['sessionid'] = sessionID;
-    data['resultPage'] = active.id;
+    data['pipetype'] = active.id;
     request
         .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
         .send(data)
