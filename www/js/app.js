@@ -148,6 +148,11 @@ var onSubmitResponseForm = function(e, data) {
     var data = serialize(e.target);
     data['sessionid'] = sessionID;
     data['pipetype'] = active.id;
+
+    // For some reason HTML5 email element doesn't serialize
+    var email = e.target.querySelector('input[name="email"]');
+    data['email'] = email.value;
+
     request
         .post(APP_CONFIG.LEADPIPES_API_BASEURL + '/form')
         .send(data)
