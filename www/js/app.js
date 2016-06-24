@@ -60,6 +60,7 @@ var initInterface = function() {
     listenBackButtonClick();
     listenAgainLinkClick();
     listenResponseFormSubmit();
+    listenShareButtonClick();
 
     loadAddEventButton();
 
@@ -72,6 +73,20 @@ var listenAgainLinkClick = function() {
         againLink.addEventListener('click', startProcessOver);
     }
 };
+
+var listenShareButtonClick = function() {
+    var shareButtons = document.querySelectorAll('.share-tools a');
+    for (var i = 0; i < shareButtons.length; i++) {
+        var button = shareButtons[i];
+        button.addEventListener('click', onShareButtonClick);
+    }
+
+}
+
+var onShareButtonClick = function() {
+    var service = this.getAttribute('data-service');
+    ANALYTICS.trackEvent('share', service);
+}
 
 var startProcessOver = function(e) {
     e.preventDefault();
@@ -184,6 +199,10 @@ var loadAddEventButton = function() {
         addeventatc.settings({
             license: APP_CONFIG.ADDEVENT_LICENSE_KEY
         });
+        addeventatc.register('button-dropdown-click', function(obj){
+            ANALYTICS.trackEvent('reminder', obj.service);
+        });
+
     }
 }
 
