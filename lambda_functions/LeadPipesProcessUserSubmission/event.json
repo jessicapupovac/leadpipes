@@ -5,5 +5,5 @@
     "address": "1111 n capitol st ne",
     "city": "Washington",
     "state": "DC",
-    "pipe-type": "lead"
+    "pipetype": "lead"
 }

@@ -56,7 +56,7 @@ def lambda_handler(event, context):
         'sessionid': event.get('sessionid'),
         'email': event.get('email'),
         'name': event.get('name'),
-        'pipetype': event.get('pipe-type'),
+        'pipetype': event.get('pipetype'),
         'address': event.get('address'),
         'city': event.get('city'),
         'state': event.get('state')
