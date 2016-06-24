@@ -8,6 +8,7 @@ App Template for static publishing.
 """
 
 import app_config
+import codecs
 import csv
 import logging
 import oauth
@@ -52,7 +53,7 @@ def _make_card_list():
 
     for filename in os.listdir('content'):
         id, extension = filename.split('.')
-        with open('content/%s' % filename) as f:
+        with codecs.open('content/%s' % filename, 'r', 'utf-8') as f:
             html = f.read()
         cards.append([id, html])
 
