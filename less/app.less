@@ -511,6 +511,8 @@ form {
 .calendar-button {
     text-align: center;
     font-size: 0.7rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
 
     .addeventatc {
         .gotham();
@@ -520,6 +522,12 @@ form {
         font-weight: bold;
         color: #fff !important; // unfortunately the original styles for this used important, which is dumb
         padding-left: 40px;
+        opacity: 0.75;
+        transition: opacity 150ms ease;
+
+        &:hover {
+            opacity: 1;
+        }
 
         @media @screen-medium {
             font-size: 0.8rem;
