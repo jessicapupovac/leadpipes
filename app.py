@@ -35,7 +35,10 @@ logger.setLevel(app_config.LOG_LEVEL)
 @app.route('/')
 @oauth.oauth_required
 def index():
-    return localized_index('en')
+    context = make_context()
+    context['content'] = context['COPY']['content-en']
+    context['share'] = context['COPY']['form-en']
+    return make_response(render_template('redirect.html', **context))
 
 
 @app.route('/<lang>')
