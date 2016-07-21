@@ -36,6 +36,12 @@ REPOSITORY_ALT_URL = None # 'git@bitbucket.org:nprapps/%s.git' % REPOSITORY_NAME
 ASSETS_SLUG = 'leadpipes'
 
 """
+LANGUAGE
+"""
+
+LANGS = ['en', 'es']
+
+"""
 API
 """
 LEADPIPES_API_KEY = 'bkayZOMvuy8aZOhIgxq94K9Oe7Y70Hw55'
@@ -111,7 +117,7 @@ DEBUG = True
 """
 COPY EDITING
 """
-COPY_GOOGLE_DOC_KEY = '131qpho7Kky6_sR-fFQdtAo7_1KiFOiNLwSMVHgvpz7o'
+COPY_GOOGLE_DOC_KEY = '17TO1-fvzrJwWwvB72tyDNdlGz5aVFzyNz4Ic8BOztl0'
 COPY_PATH = 'data/copy.xlsx'
 GOOGLE_DOCS_FOLDER_ID = '0B03IIavLYTovV1ZRRFFOMFpUZ0U'
 
