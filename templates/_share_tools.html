@@ -11,7 +11,7 @@
         <a href="https://www.facebook.com/dialog/feed?app_id={{ COPY.share.facebook_app_id }}&amp;link={{ COPY.share.share_url|urlencode }}&amp;name={{ COPY.share.facebook_title|urlencode }}&amp;picture={{ COPY.share.facebook_image_url|urlencode }}&amp;redirect_uri={{ SHARE_URL|urlencode }}&amp;description={{ COPY.share.facebook_text|urlencode }}" target="_blank" data-service="facebook"><i class="icon icon-facebook share-icon"></i> <b>Share on Facebook</b></a>
     </li>
     <li class="share-tools__service service-twitter">
-        <a href="http://twitter.com/share?text={{ COPY.share.twitter_text|urlencode }}&amp;url={{ COPY.share.share_url|urlencode }}" target="_blank" data-service="twitter"><i class="icon icon-twitter share-icon"></i> <b>Share on Twitter</b></a>
+        <a href="http://twitter.com/share?text={{ COPY.share.twitter_text|urlencode }}&amp;url=/" target="_blank" data-service="twitter"><i class="icon icon-twitter share-icon"></i> <b>Share on Twitter</b></a>
     </li>
     <li class="share-tools__service service-email">
         <a href="mailto:?body={{ COPY.share.email_body|safe }}&amp;subject={{ COPY.share.email_subject }}" data-service="email"><i class="icon icon-mail-alt share-icon"></i> <b>Email to a friend</b></a>
