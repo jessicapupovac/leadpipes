@@ -6,6 +6,11 @@
         <a href="http://npr.org" target="_blank"><img src="../assets/npr-white.png" /></a>
         <h5><a href="#{{ COPY.config.initial_card }}">{{ content.pagehed }}</a></h5>
     </div>
+    <div class="language-selector">
+        {% for available_lang in LANGS %}
+        <button data-language="{{ available_lang }}"{% if available_lang == lang %} class="active"{% endif %}>{{ available_lang }}</button>
+        {% endfor %}
+    </div>
 </div>
 <div id="content">
     {% for id, card_content in cards %}

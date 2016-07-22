@@ -61,6 +61,7 @@ var initInterface = function() {
     listenAgainLinkClick();
     listenResponseFormSubmit();
     listenShareButtonClick();
+    listenLanguageButtonClick();
 
     loadAddEventButton();
 
@@ -86,6 +87,29 @@ var listenShareButtonClick = function() {
 var onShareButtonClick = function() {
     var service = this.getAttribute('data-service');
     ANALYTICS.trackEvent('share', service);
+}
+
+var listenLanguageButtonClick = function() {
+    var languageButtons = document.querySelectorAll('.language-selector button');
+    for (var i = 0; i < languageButtons.length; i++) {
+        var button = languageButtons[i];
+        button.addEventListener('click', onLanguageButtonClick);
+    }
+}
+
+var onLanguageButtonClick = function(e) {
+    var activeClass = 'active';
+    var activeButton = false;
+    if (this.classList) {
+        activeButton = this.classList.contains(activeClass);
+    } else {
+        activeButton = new RegExp('(^| )' + activeClass + '( |$)', 'gi').test(this.activeClass);
+    }
+
+    if (!activeButton) {
+        var language = this.getAttribute('data-language');
+        window.location = '../' + language + '/#' + active.id;
+    }
 }
 
 var startProcessOver = function(e) {
