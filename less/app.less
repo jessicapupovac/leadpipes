@@ -108,7 +108,9 @@ h1, h2, h3, h4, h5, h6 {
 hr {
     border-style: solid;
     border-top: none;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #555;
+    border-color: #555;
+    margin: 2rem auto;
 }
 
 #content {
@@ -454,6 +456,7 @@ p.img-credit {
 
 form {
     margin-top: 2rem;
+
     &.form-hidden {
         display: none;
     }
@@ -516,9 +519,8 @@ form {
     display: block;
     max-width: 500px;
     margin: 0 auto;
-    background: rgba(29, 29, 29, 0.5);
+    background: #353535;
     padding: 1rem 2rem;
-    border: 1px solid #555;
     color: #ccc;
     text-align: center;
 
@@ -577,6 +579,21 @@ form {
 
     @media @screen-medium {
         font-size: 0.8rem;
+    }
+}
+
+.social-msg {
+    background: #353535;
+    padding: 20px;
+
+    .share-tools {
+        margin: 0 0 0 -12px;
+        color: #e46629;
+    }
+
+    p {
+        margin: 0 auto 10px;
+        font-size: 1.2em;
     }
 }
 
