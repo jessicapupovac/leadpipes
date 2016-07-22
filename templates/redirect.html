@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+
+{% block fonts %}{% endblock %}
+
+{% block css %}
+<style>
+body {
+    background-color: #000;
+    color: #eee;
+}
+</style>
+{% endblock %}
+
+{% block head_js %}
+{{ super() }}
+<script type="text/javascript">
+    var port = '';
+    if (window.location.port) {
+        port = ':' + window.location.port;
+    }
+
+    var baseURI = window.location.protocol + '//' + window.location.hostname + port + window.location.pathname
+    var availableLanguages = {{ LANGS|tojson|safe }};
+    var language = window.navigator.userLanguage || window.navigator.language;
+    language = language.slice(0, 2);
+
+    if (availableLanguages.indexOf(language) != -1){
+        window.location.replace(baseURI + language + '/');
+    } else {
+        window.location.replace(baseURI + 'en/');
+    }
+</script>
+{% endblock %}
+
+{% block footer_js %}{% endblock %}

@@ -35,25 +35,38 @@ logger.setLevel(app_config.LOG_LEVEL)
 @app.route('/')
 @oauth.oauth_required
 def index():
+    context = make_context()
+    context['content'] = context['COPY']['content-en']
+    context['share'] = context['COPY']['form-en']
+    return make_response(render_template('redirect.html', **context))
+
+
+@app.route('/<lang>/')
+@oauth.oauth_required
+def localized_index(lang):
     """
     Example view demonstrating rendering a simple HTML page.
     """
     context = make_context()
-    context['initial_card'] = context['COPY']['content']['initial_card'].__unicode__()
-    context['cards'] = _make_card_list()
+    context['lang'] = lang
+    context['content'] = context['COPY']['content-%s' % lang]
+    context['form'] = context['COPY']['form-%s' % lang]
+    context['share'] = context['COPY']['form-%s' % lang]
+    context['initial_card'] = context['COPY']['config']['initial_card'].__unicode__()
+    context['cards'] = _make_card_list(lang)
     context['us_states'] = us.states.STATES
     return make_response(render_template('index.html', **context))
 
 
-def _make_card_list():
+def _make_card_list(lang):
     """
     Make list of id, html pairs
     """
     cards = []
 
-    for filename in os.listdir('content'):
+    for filename in os.listdir('content/%s' % lang):
         id, extension = filename.split('.')
-        with codecs.open('content/%s' % filename, 'r', 'utf-8') as f:
+        with codecs.open('content/%s/%s' % (lang, filename), 'r', 'utf-8') as f:
             html = f.read()
         cards.append([id, html])
 

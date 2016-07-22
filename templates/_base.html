@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ lang }}">
 
 <head>
     <!-- CHARTBEAT -->
@@ -7,35 +7,46 @@
         var _sf_startpt=(new Date()).getTime();
     </script>
 
-    <title>{{ COPY.content.project_name }}</title>
+    <title>{{ content.project_name }}</title>
 
+    {% block meta %}
     <!-- META TAGS -->
     {% include '_meta.html' %}
+    {% endblock %}
 
+    {% block fonts %}
     <!-- FONTS -->
     {% include '_fonts.html' %}
+    {% endblock %}
 
+    {% block css %}
     <!-- CSS -->
     {{ CSS.push('less/app.less') }}
     {% block extra_css %}{% endblock extra_css %}
     {{ CSS.render('css/rendered/app.min.css') }}
+    {% endblock %}
 
+    {% block social_tags %}
     {% include '_social_tags.html' %}
+    {% endblock %}
 
     {% block extra_head %}
     {% endblock extra_head %}
 </head>
 <body>
+    {% block head_js %}
     <!-- ANALYTICS JAVASCRIPT -->
     {{ JS.push('js/lib/modernizr.js') }}
     {{ JS.push('js/app_config.js') }}
     {{ JS.push('js/lib/cookie.js') }}
     {{ JS.push('js/analytics.js') }}
     {{ JS.render('js/app-header.min.js') }}
+    {% endblock %}
 
     {% block content %}
     {% endblock content %}
 
+    {% block footer_js %}
     {{ JS.push('js/lib/director.js') }}
     {{ JS.push('js/lib/serialize.js') }}
     {{ JS.push('js/lib/lscache.js') }}
@@ -51,5 +62,7 @@
     <script type="text/javascript">
         ANALYTICS.setupChartbeat();
     </script>
+    {% endblock %}
+
 </body>
 </html>

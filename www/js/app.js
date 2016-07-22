@@ -45,10 +45,10 @@ var handleSessionRequest = function(err, res) {
 var setupSession = function() {
     checkIfSubmitted();
     if (!APP_CONFIG.DEBUG) {
-        lscache.set('LeadPipesSessionID', sessionID, parseInt(COPY.content.session_ttl));
+        lscache.set('LeadPipesSessionID', sessionID, parseInt(COPY.config.session_ttl));
         window.location.hash = '';
     }
-    router.init([COPY.content.initial_card]);
+    router.init([COPY.config.initial_card]);
 }
 
 var initInterface = function() {
@@ -61,6 +61,7 @@ var initInterface = function() {
     listenAgainLinkClick();
     listenResponseFormSubmit();
     listenShareButtonClick();
+    listenLanguageButtonClick();
 
     loadAddEventButton();
 
@@ -88,6 +89,29 @@ var onShareButtonClick = function() {
     ANALYTICS.trackEvent('share', service);
 }
 
+var listenLanguageButtonClick = function() {
+    var languageButtons = document.querySelectorAll('.language-selector button');
+    for (var i = 0; i < languageButtons.length; i++) {
+        var button = languageButtons[i];
+        button.addEventListener('click', onLanguageButtonClick);
+    }
+}
+
+var onLanguageButtonClick = function(e) {
+    var activeClass = 'active';
+    var activeButton = false;
+    if (this.classList) {
+        activeButton = this.classList.contains(activeClass);
+    } else {
+        activeButton = new RegExp('(^| )' + activeClass + '( |$)', 'gi').test(this.activeClass);
+    }
+
+    if (!activeButton) {
+        var language = this.getAttribute('data-language');
+        window.location = '../' + language + '/#' + active.id;
+    }
+}
+
 var startProcessOver = function(e) {
     e.preventDefault();
 
@@ -108,7 +132,7 @@ var checkIfSubmitted = function() {
 }
 
 var navigateToCard = function(cardID) {
-    if (cardID == '') cardID = COPY.content.initial_card;
+    if (cardID == '') cardID = COPY.config.initial_card;
     var nextCard = document.getElementById(cardID);
     if (nextCard) {
         if (active) active.classList.remove('active');
@@ -118,7 +142,7 @@ var navigateToCard = function(cardID) {
         ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
-        router.setRoute(COPY.content.initial_card);
+        router.setRoute(COPY.config.initial_card);
     }
 }
 

@@ -128,9 +128,12 @@ img {
 }
 
 .header {
+    .clearfix();
     padding-bottom: 5px;
 
     .logo {
+        float: left;
+        width: 70%;
         padding-top: 23px;
         padding-left: 30px;
 
@@ -169,6 +172,26 @@ img {
 
             @media @screen-small-above {
                 width: 4.5rem;
+            }
+        }
+    }
+
+    .language-selector {
+        float: right;
+        padding-right: 1.8rem;
+        padding-top: 14px;
+        button {
+            background: none;
+            border: 1px solid #999;
+            color: #999;
+            font-size: 0.65rem;
+            &:hover {
+                color: #fff;
+                border-color: #fff;
+            }
+            &.active {
+                color: #ccc;
+                border-color: #ccc;
             }
         }
     }

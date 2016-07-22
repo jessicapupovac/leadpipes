@@ -3,19 +3,24 @@
 
 <div class="header">
     <div class="logo">
-        <a href="http://npr.org" target="_blank"><img src="assets/npr-white.png" /></a>
-        <h5><a href="#{{ COPY.content.initial_card }}">{{ COPY.content.pagehed }}</a></h5>
+        <a href="http://npr.org" target="_blank"><img src="../assets/npr-white.png" /></a>
+        <h5><a href="#{{ COPY.config.initial_card }}">{{ content.pagehed }}</a></h5>
+    </div>
+    <div class="language-selector">
+        {% for available_lang in LANGS %}
+        <button data-language="{{ available_lang }}"{% if available_lang == lang %} class="active"{% endif %}>{{ available_lang }}</button>
+        {% endfor %}
     </div>
 </div>
 <div id="content">
-    {% for id, content in cards %}
+    {% for id, card_content in cards %}
     <section id="{{ id }}" class="card">
-        {{ content|safe }}
+        {{ card_content|safe }}
         {% if id in END_CARDS %}
         {% include '_form.html' %}
         {% include '_share_tools.html' %}
         {% endif %}
-        {% if COPY.content.initial_card.__unicode__() != id %}
+        {% if COPY.config.initial_card.__unicode__() != id %}
         <p><a href="#" class="btn back">Back</a></p>
         {% endif %}
         {% if id in END_CARDS %}
