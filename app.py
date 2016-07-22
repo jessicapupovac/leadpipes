@@ -41,7 +41,7 @@ def index():
     return make_response(render_template('redirect.html', **context))
 
 
-@app.route('/<lang>')
+@app.route('/<lang>/')
 @oauth.oauth_required
 def localized_index(lang):
     """

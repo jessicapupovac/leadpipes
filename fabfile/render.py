@@ -95,8 +95,6 @@ def render_all():
     """
     Render HTML templates and compile assets.
     """
-    from flask import g
-
     less()
     jst()
     app_config_js()
@@ -114,35 +112,47 @@ def render_all():
             logger.info('Skipping %s' % name)
             continue
 
-        # Convert trailing slashes to index.html files
-        if rule_string.endswith('/'):
-            filename = 'www' + rule_string + 'index.html'
-        elif rule_string.endswith('.html'):
-            filename = 'www' + rule_string
+        if rule_string == '/<lang>/':
+            for lang in app_config.LANGS:
+                write_view(name, '/{0}/'.format(lang), compiled_includes)
         else:
-            logger.info('Skipping %s' % name)
-            continue
+            write_view(name, rule_string, compiled_includes)
 
-        # Create the output path
-        dirname = os.path.dirname(filename)
 
-        if not (os.path.exists(dirname)):
-            os.makedirs(dirname)
+def write_view(name, path, compiled_includes):
+    from flask import g
 
-        logger.info('Rendering %s' % (filename))
+    args = filter(None, path.split("/"))
 
-        # Render views, reusing compiled assets
-        with _fake_context(rule_string):
-            g.compile_includes = True
-            g.compiled_includes = compiled_includes
+    # Convert trailing slashes to index.html files
+    if path.endswith('/'):
+        filename = 'www' + path + 'index.html'
+    elif path.endswith('.html'):
+        filename = 'www' + path
+    else:
+        logger.info('Skipping %s' % name)
+        return
 
-            view = _view_from_name(name)
+    # Create the output path
+    dirname = os.path.dirname(filename)
 
-            content = view().data
+    if not (os.path.exists(dirname)):
+        os.makedirs(dirname)
 
-            compiled_includes = g.compiled_includes
+    logger.info('Rendering %s' % (filename))
 
-        # Write rendered view
-        # NB: Flask response object has utf-8 encoded the data
-        with open(filename, 'w') as f:
-            f.write(content)
+    # Render views, reusing compiled assets
+    with _fake_context(path):
+        g.compile_includes = True
+        g.compiled_includes = compiled_includes
+
+        view = _view_from_name(name)
+
+        content = view(*args).data
+
+        compiled_includes = g.compiled_includes
+
+    # Write rendered view
+    # NB: Flask response object has utf-8 encoded the data
+    with open(filename, 'w') as f:
+        f.write(content)
