@@ -35,6 +35,7 @@
 @screen-small: ~"screen and (max-width: 767px)";
 @screen-tiny-above: ~"screen and (min-width: 481px)";
 @screen-tiny: ~"screen and (max-width: 480px)";
+@screen-tiniest: ~"screen and (max-width: 400px)";
 
 //max-width for content
 @max-width-content: 47rem;
@@ -115,7 +116,7 @@ hr {
 
 #content {
     max-width: 50rem;
-    padding: 10px 30px;
+    padding: 10px 20px;
     margin: 0 auto;
 
     @media @screen-small-above {
@@ -140,6 +141,11 @@ img {
         @media @screen-small-above {
             //padding-top: 28px;
             padding-left: 1.8rem;
+        }
+
+        @media @screen-tiniest {
+            width: 100%;
+            padding-left: 20px;
         }
 
         h5 {
@@ -169,23 +175,32 @@ img {
             margin-right: .5rem;
             max-width: 100%;
             height: auto;
+            margin-top: 2px;
 
             @media @screen-small-above {
                 width: 4.5rem;
+                margin-top: -1px;
             }
         }
     }
 
     .language-selector {
         float: right;
-        padding-right: 1.8rem;
-        padding-top: 14px;
+        padding-right: 30px;
+        padding-top: 21px;
+
+        @media @screen-tiniest {
+            float: left;
+            padding-right: 0;
+            padding-left: 20px;
+        }
+
         button {
             border: none;
             border-radius: 2px;
             background-color: #666;
             color: #ddd;
-            font-size: 0.65rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: background-color 150ms ease;
             &:hover {
@@ -274,6 +289,10 @@ p.img-credit {
         @media @screen-small-above {
             font-size: 2.7rem;
             line-height: 3rem;
+        }
+
+        @media @screen-tiniest {
+            margin: 0;
         }
     }
 
