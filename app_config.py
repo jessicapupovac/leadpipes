@@ -59,6 +59,7 @@ ADDEVENT_LICENSE_KEY = 'aNcuShirVzIJlocSHmKh18678'
 APP CONFIGURATION
 """
 END_CARDS = ['lead', 'probably-lead']
+OUTCOME_CARDS = ['lead', 'probably-lead', 'copper', 'steel', 'plastic']
 
 """
 DEPLOYMENT

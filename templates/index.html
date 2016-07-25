@@ -16,8 +16,10 @@
     {% for id, card_content in cards %}
     <section id="{{ id }}" class="card">
         {{ card_content|safe }}
-        {% if id in END_CARDS %}
+        {% if id in OUTCOME_CARDS %}
         {% include '_share_tools.html' %}
+        {% endif %}
+        {% if id in END_CARDS %}
         {% include '_form.html' %}
         {% endif %}
         {% if COPY.config.initial_card.__unicode__() != id %}
