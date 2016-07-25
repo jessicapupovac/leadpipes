@@ -197,22 +197,23 @@ img {
 
         button {
             border: none;
-            border-radius: 2px;
-            background-color: #666;
-            color: #ddd;
+            background: none;
+            color: #999;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: background-color 150ms ease;
+            transition: color 150ms ease;
+            text-transform: uppercase;
             &:hover {
                 color: #fff;
-                background-color: #444;
+                border-bottom: 2px solid #666;
             }
             &.active {
                 color: #fff;
                 font-weight: bold;
-                background-color: @accent;
+                border-bottom: 2px solid @accent;
+                cursor: default;
                 &:hover {
-                    background-color: @accent-light;
+
                 }
             }
         }
