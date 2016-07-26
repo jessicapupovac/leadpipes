@@ -133,6 +133,13 @@ var checkIfSubmitted = function() {
 
 var navigateToCard = function(cardID) {
     if (cardID == '') cardID = COPY.config.initial_card;
+
+    if (cardID == COPY.config.initial_card) {
+        document.body.classList.add('initial-card');
+    } else {
+        document.body.classList.remove('initial-card');
+    }
+
     var nextCard = document.getElementById(cardID);
     if (nextCard) {
         if (active) active.classList.remove('active');
