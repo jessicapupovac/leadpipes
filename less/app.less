@@ -137,6 +137,7 @@ img {
         width: 70%;
         padding-top: 23px;
         padding-left: 30px;
+        box-sizing: border-box;
 
         @media @screen-small-above {
             //padding-top: 28px;
@@ -146,6 +147,7 @@ img {
         @media @screen-tiniest {
             width: 100%;
             padding-left: 20px;
+            padding-right: 20px;
         }
 
         h5 {
@@ -222,7 +224,7 @@ img {
 
 p.img-credit {
     font-size: 0.7rem;
-    color: #999;
+    color: #aaa;
     text-align: right;
 
     &.bg-photo-credit {
@@ -301,21 +303,18 @@ p.img-credit {
     h3 { font-size: 14px; }
     h4 { margin-top: 3rem; }
 
-    .byline {
-        font-size: 0.7rem;
-        line-height: 1.3rem;
-        color: #ccc;
-
-        @media @screen-medium {
-            font-size: 0.8rem;
-        }
-    }
-
-    .disclaimer {
+    .bottom-notes {
         margin-top: 2rem;
         font-size: 0.7rem;
+        line-height: 1.3rem;
+        color: #aaa;
         a {
+            color: #ddd;
             border-width: 1px;
+
+            &:hover {
+                color: @accent;
+            }
         }
         @media @screen-medium {
             font-size: 0.8rem;
@@ -561,51 +560,34 @@ form {
 }
 
 .calendar-button {
-    text-align: center;
-    font-size: 0.7rem;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-
     .addeventatc {
         .gotham();
         background: none;
         border: none !important;
-        font-size: 0.7rem;
+        border-radius: 0;
+        border-bottom: 2px solid @accent !important;
+        font-size: 1rem;
         font-weight: bold;
         color: #fff !important; // unfortunately the original styles for this used important, which is dumb
-        padding-left: 40px;
-        opacity: 0.75;
-        transition: opacity 150ms ease;
-
-        &:hover {
-            opacity: 1;
-        }
-
-        @media @screen-medium {
-            font-size: 0.8rem;
-        }
+        padding: 13px 0 1px 0;
+        margin-left: 30px;
 
         &:hover {
             background: none;
             border: none;
-            font-size: 0.7rem;
-
-            @media @screen-medium {
-                font-size: 0.8rem;
-            }
+            font-size: 1rem;
+            color: @accent !important;
         }
 
         .addeventatc_icon {
             background: url(../../assets/icon-calendar-t5.png) no-repeat;
+            left: -24px;
+            top: 12px;
         }
 
         a { 
             border: none;
         }
-    }
-
-    @media @screen-medium {
-        font-size: 0.8rem;
     }
 }
 
