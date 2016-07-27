@@ -223,7 +223,9 @@ var loadAddEventButton = function() {
     addEventButtonElement.innerHTML = JST.addeventbutton({
         start: start.format(fmt),
         end: end.format(fmt),
-        license: APP_CONFIG.ADDEVENT_LICENSE_KEY
+        calendar_text: window.CALENDAR.calendar_text,
+        event_title: window.CALENDAR.event_title,
+        event_description: window.CALENDAR.event_description
     });
 
     var script= document.createElement('script');
@@ -233,12 +235,12 @@ var loadAddEventButton = function() {
     document.body.appendChild(script);
     script.onload = function() {
         addeventatc.settings({
-            license: APP_CONFIG.ADDEVENT_LICENSE_KEY
+            license: APP_CONFIG.ADDEVENT_LICENSE_KEY,
+            css: false
         });
         addeventatc.register('button-dropdown-click', function(obj){
             ANALYTICS.trackEvent('reminder', obj.service);
         });
-
     }
 }
 

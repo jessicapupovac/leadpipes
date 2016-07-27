@@ -48,4 +48,8 @@
     {% endif %}
 </div>
 
+<script>
+window.CALENDAR = {{ calendar._serialize()|tojson|safe }};
+</script>
+
 {% endblock %}
