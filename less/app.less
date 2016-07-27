@@ -304,7 +304,8 @@ p.img-credit {
     h3 { font-size: 14px; }
     h4 { margin-top: 3rem; }
 
-    .bottom-notes {
+    .bottom-notes, .disclaimer {
+        .clearfix();
         margin-top: 2rem;
         font-size: 0.7rem;
         line-height: 1.3rem;
@@ -320,6 +321,34 @@ p.img-credit {
         @media @screen-medium {
             font-size: 0.8rem;
         }
+
+        .col {
+            float: left;
+            width: 48%;
+            padding-right: 2%;
+            @media @screen-tiny {
+                float: none;
+                width: auto;
+                padding: 0;
+            }
+        }
+        .col+.col {
+            padding-right: 0;
+            padding-left: 2%;
+            @media @screen-tiny {
+                padding: 0;
+            }
+        }
+    }
+    .bottom-notes {
+        border-top: 1px solid #444;
+        border-bottom: 1px solid #444;
+    }
+
+
+    .bottom-notes+.disclaimer {
+        padding-top: 1rem;
+        margin-top: 0;
     }
 
     .button-wrapper {
