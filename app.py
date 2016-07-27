@@ -51,7 +51,7 @@ def localized_index(lang):
     context['lang'] = lang
     context['content'] = context['COPY']['content-%s' % lang]
     context['form'] = context['COPY']['form-%s' % lang]
-    context['share'] = context['COPY']['form-%s' % lang]
+    context['share'] = context['COPY']['share-%s' % lang]
     context['initial_card'] = context['COPY']['config']['initial_card'].__unicode__()
     context['cards'] = _make_card_list(lang)
     context['us_states'] = us.states.STATES
