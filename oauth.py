@@ -51,7 +51,7 @@ def authenticate():
 
         if not result.error:
             save_credentials(result.user.credentials)
-            get_document(app_config.COPY_GOOGLE_DOC_KEY, app_config.COPY_PATH)
+            get_spreadsheet(app_config.COPY_GOOGLE_DOC_KEY, app_config.COPY_PATH)
 
         return render_template('oauth/authenticate.html', **context)
 
@@ -69,7 +69,7 @@ def oauth_required(f):
             return redirect(url_for('_oauth.oauth_alert'))
         else:
             if request.args.get('refresh'):
-                get_document(app_config.COPY_GOOGLE_DOC_KEY, app_config.COPY_PATH)
+                get_spreadsheet(app_config.COPY_GOOGLE_DOC_KEY, app_config.COPY_PATH)
             return f(*args, **kwargs)
     return decorated_function
 
