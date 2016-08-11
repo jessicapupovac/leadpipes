@@ -10,6 +10,17 @@ var requestHeaders = {
     'Accept': 'application/json'
 }
 
+var getParameterByName = function(name) {
+    var regex = new RegExp("[\\?&]" + name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]') + '=([^&#]*)');
+    var results = regex.exec(location.search);
+
+    if (results === null) {
+        return null;
+    }
+
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+
 var onDocumentLoad = function(e) {
     sessionID = lscache.get('LeadPipesSessionID');
     initInterface();
