@@ -19,7 +19,7 @@ body {
         port = ':' + window.location.port;
     }
 
-    var baseURI = window.location.protocol + '//' + window.location.hostname + port + window.location.pathname
+    var baseURI = 'https://' + window.location.hostname + port + window.location.pathname
     var availableLanguages = {{ LANGS|tojson|safe }};
     var language = window.navigator.userLanguage || window.navigator.language;
     language = language.slice(0, 2);
