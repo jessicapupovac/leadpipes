@@ -159,8 +159,6 @@ var parseCardID = function(cardID) {
         case '':
         case 'calendar-start-link':
             return COPY.config.initial_card;
-        case 'lead-deeplink':
-            return 'lead';
         default:
             return cardID;
     }
