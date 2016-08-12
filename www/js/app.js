@@ -10,17 +10,6 @@ var requestHeaders = {
     'Accept': 'application/json'
 }
 
-var getParameterByName = function(name) {
-    var regex = new RegExp("[\\?&]" + name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]') + '=([^&#]*)');
-    var results = regex.exec(location.search);
-
-    if (results === null) {
-        return null;
-    }
-
-    return decodeURIComponent(results[1].replace(/\+/g, " "));
-};
-
 var onDocumentLoad = function(e) {
     sessionID = lscache.get('LeadPipesSessionID');
     initInterface();
@@ -143,7 +132,9 @@ var checkIfSubmitted = function() {
 }
 
 var navigateToCard = function(cardID) {
-    if (cardID == '') cardID = COPY.config.initial_card;
+    ANALYTICS.trackEvent('navigate', cardID);
+
+    cardID = parseCardID(cardID);
 
     if (cardID == COPY.config.initial_card) {
         document.body.classList.add('initial-card');
@@ -157,10 +148,21 @@ var navigateToCard = function(cardID) {
         nextCard.classList.add('active');
         setTimeout(function() { window.scrollTo(0, 0);}, 1);
         active = nextCard;
-        ANALYTICS.trackEvent('navigate', cardID);
     } else {
         console.error('Route "' + cardID + '" does not exist');
         router.setRoute(COPY.config.initial_card);
+    }
+}
+
+var parseCardID = function(cardID) {
+    switch(cardID) {
+        case '':
+        case 'calendar-start-link':
+            return COPY.config.initial_card;
+        case 'lead-deeplink':
+            return 'lead';
+        default:
+            return cardID;
     }
 }
 
