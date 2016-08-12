@@ -37,7 +37,7 @@ logger.setLevel(app_config.LOG_LEVEL)
 def index():
     context = make_context()
     context['content'] = context['COPY']['content-en']
-    context['share'] = context['COPY']['form-en']
+    context['share'] = context['COPY']['share-en']
     return make_response(render_template('redirect.html', **context))
 
 
