@@ -146,12 +146,13 @@ var navigateToCard = function(cardID) {
     if (nextCard) {
         if (active) active.classList.remove('active');
         nextCard.classList.add('active');
-        setTimeout(function() { window.scrollTo(0, 0);}, 1);
         active = nextCard;
     } else {
         console.error('Route "' + cardID + '" does not exist');
         router.setRoute(COPY.config.initial_card);
     }
+
+    setTimeout(function() { window.scrollTo(0, 0);}, 0);
 }
 
 var parseCardID = function(cardID) {
